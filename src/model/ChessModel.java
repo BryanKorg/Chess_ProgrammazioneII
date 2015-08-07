@@ -12,17 +12,17 @@ public class ChessModel implements Model{
 		
 
 private View view;
-private int holdx;
-private int holdy;
-private int WKingx;
-private int WKingy;
-private int BKingx;
-private int BKingy;
+private int holdx; //tiene traccia della x della pedina che si è scelto di muovere nella phase precedente di gioco (phase=true)
+private int holdy;//tiene traccia della y " "
+private int WKingx;//tiene traccia della x del Re bianco
+private int WKingy;//""
+private int BKingx;//tiene traccia della x del Re nero
+private int BKingy;//""
 private boolean turn; //indica quale giocatore tocca muovere
 private boolean phase; //indica la fase di movimento 
-private int positions[][]= new int [8][8];
-boolean Shine[][]= new boolean[8][8];
-boolean HoldShine[][]= new boolean[8][8];
+private int positions[][]= new int [8][8];//matrice in cui sono memorizzate le posizione delle pedine, se =-1 allora la casella è vuota
+boolean Shine[][]= new boolean[8][8];//matrice in cui vengono memorizzate le caselle valide per una mossa
+boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per operazioni su Shine
 
 	public ChessModel(){
 		
