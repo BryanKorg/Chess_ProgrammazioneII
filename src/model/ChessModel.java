@@ -2,27 +2,23 @@ package model;
 
 import view.View;
 
-
-
-
-
-
-
+/**
+ * 
+ */
 public class ChessModel implements Model{
 		
-
-private View view;
-private int holdx;
-private int holdy;
-private int WKingx;
-private int WKingy;
-private int BKingx;
-private int BKingy;
-private boolean turn; //indica quale giocatore tocca muovere
-private boolean phase; //indica la fase di movimento 
-private int positions[][]= new int [8][8];
-boolean Shine[][]= new boolean[8][8];
-boolean HoldShine[][]= new boolean[8][8];
+	private View view;
+	private int holdx;
+	private int holdy;
+	private int WKingx;
+	private int WKingy;
+	private int BKingx;
+	private int BKingy;
+	private boolean turn; //indica quale giocatore tocca muovere
+	private boolean phase; //indica la fase di movimento 
+	private int positions[][]= new int [8][8];
+	boolean Shine[][]= new boolean[8][8];
+	boolean HoldShine[][]= new boolean[8][8];
 
 	public ChessModel(){
 		
@@ -76,93 +72,76 @@ boolean HoldShine[][]= new boolean[8][8];
 		BKingx=0;
 		BKingy=3;
 	
-		
-		
 		view.Change(positions);
 		
 		view.Check(0,0,false);
 		view.LightDown();
 		turn=true;
 		phase=true;
-		
-		
-		}
+	}
 	
 	
 
 	@Override
-	public void setView(View view) {
-		
-		this.view=view;
-		
+	public void setView(View view) {		
+		this.view=view;	
 	}
 
 	@Override
 	public void MoveCheck(int x, int y) {
-	
-	
-	
-	if(phase){
-		if(IsValid(x,y)){//Controlla se la caselle premuta è valida per una mossa
-			//Resetta le matrice delle caselle valide per una mossa
-			ResetShineMatrix();
-			//Memorizza le coordinate della casella che si intende spostare
-			holdx=x;
-			holdy=y;
-			//Determina le caselle valide per una mossa
-			ShineValidated(x,y);
-			if(FilterValidTiles()){ //talgo dalle caselle valide quelle che lascerebbero/metterebbero il re sotto scacco
-				phase=false;//passa alla seconda fase  della mossa 
-				//Chiede alla view di illuminare le caselle valide	
-				view.LightUp(Shine);
-			}
-			
+		if(phase){
+			if(IsValid(x,y)){//Controlla se la caselle premuta è valida per una mossa
+				//Resetta le matrice delle caselle valide per una mossa
+				ResetShineMatrix();
+				//Memorizza le coordinate della casella che si intende spostare
+				holdx=x;
+				holdy=y;
+				//Determina le caselle valide per una mossa
+				ShineValidated(x,y);
+				if(FilterValidTiles()){ //talgo dalle caselle valide quelle che lascerebbero/metterebbero il re sotto scacco
+					phase=false;//passa alla seconda fase  della mossa 
+					//Chiede alla view di illuminare le caselle valide	
+					view.LightUp(Shine);
+				}
 			}
 		}else{
 			//Codice della seconda fase di gioco
 			if(!Shine[x][y]){
 						view.LightDown();
 			}else{
-						//effettua la modifa sulla posizione delle pedine sulla matrice delle posizioni
-						Swap(x,y);
-						//prima di modificare definitivamente devo controllare se la mossa libera il re dallo scacco
-				
-						view.Change(positions);
-						//chiede alla view di spegnere le caselle illuminate 
-						view.LightDown();
-						if(turn){view.Check(WKingx,WKingy,false);}else{view.Check(BKingx,BKingy,false);}
-						ifPawnUpgrade(x,y);
-						turn=!turn; //Passo il turno seguente
-						
-						
-					
-					
-				//Prima di permettere all'altro giocatore di muovere, controllo se è sotto scacco
-				
-				
-					if(IfCheck()){
-							if(IfCheckMate()){
-								view.ShowCheckMsg();
-								
-							}else{
-								if(turn){ view.Check(WKingx,WKingy,true);
-								}else{ view.Check(BKingx,BKingy,true);}
-								 }
-					}else{
-							if(turn){view.Check(WKingx,WKingy,false);
-							}else{view.Check(BKingx,BKingy,false);}
-						 }
-					
-				
-				
-				
-			    }
-			
-			phase=true; //torno alla phase iniziale della mossa
-			
-			}
+				//effettua la modifa sulla posizione delle pedine sulla matrice delle posizioni
+				Swap(x,y);
+				//prima di modificare definitivamente devo controllare se la mossa libera il re dallo scacco
 		
-		}
+				view.Change(positions);
+				//chiede alla view di spegnere le caselle illuminate 
+				view.LightDown();
+				if(turn){view.Check(WKingx,WKingy,false);}else{view.Check(BKingx,BKingy,false);}
+				ifPawnUpgrade(x,y);
+				turn=!turn; //Passo il turno seguente
+
+				//Prima di permettere all'altro giocatore di muovere, controllo se è sotto scacco
+				if(IfCheck()){
+					if(IfCheckMate()){
+						view.ShowCheckMsg();	
+					}else{
+						if(turn){
+							view.Check(WKingx,WKingy,true);
+						}else{
+							view.Check(BKingx,BKingy,true);
+						}
+					}
+				}else{
+					if(turn){
+						view.Check(WKingx,WKingy,false);
+					}else{
+						view.Check(BKingx,BKingy,false);
+					}
+				}
+			}
+			phase=true; //torno alla phase iniziale della mossa
+		}	
+	}
 	
 	//Controlla se la casella premuta è valida per l'esecuzione di una mossa
 	private boolean IsValid(int x, int y){ 
