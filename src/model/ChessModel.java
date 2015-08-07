@@ -7,7 +7,6 @@ import view.View;
 
 
 
-
 public class ChessModel implements Model{
 		
 
@@ -29,7 +28,7 @@ boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per op
 		
 	}
 	
-	public void InitialPosition(){
+	public void InitialPosition(){//pone le pedina nella posizione iniziale
 		
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
@@ -71,13 +70,15 @@ boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per op
 		positions[6][5]=5;
 		positions[6][6]=5;
 		positions[6][7]=5;
+		
+		//Settate le posioni dei Re 
 		WKingx=7;
 		WKingy=3;
 		BKingx=0;
 		BKingy=3;
 	
 		
-		
+		//Imposta la posizione iniziale a livello grafico
 		view.Change(positions);
 		
 		view.Check(0,0,false);
