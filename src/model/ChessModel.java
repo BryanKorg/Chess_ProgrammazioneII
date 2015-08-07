@@ -112,7 +112,7 @@ public class ChessModel implements Model{
 			}else{
 				//effettua la modifa sulla posizione delle pedine sulla matrice delle posizioni
 				Swap(x,y);
-				//prima di modificare definitivamente devo controllare se la mossa libera il re dallo scacco
+				
 		
 				view.Change(positions);
 				//chiede alla view di spegnere le caselle illuminate 
