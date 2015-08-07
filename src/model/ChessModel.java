@@ -190,6 +190,7 @@ boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per op
 			
 	private int Swap(int x,int y){//modifica la matrice delle posizioni
 		int tmp;
+		//devo controllare se ho messo un re e in caso affermatico modificare gli attributi delle coorinate
 		if(WKingx==holdx && WKingy==holdy){
 			WKingx=x;
 			WKingy=y;
@@ -204,7 +205,7 @@ boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per op
 		tmp=positions[x][y];
 		positions[x][y]=positions[holdx][holdy];
 		positions[holdx][holdy]=-1;
-		return tmp;
+		return tmp; //devo tenere traccua di positions[x][y] perchè necessario in caso di RollBack
 	}
 	private void RollBack(int x,int y,int tmp){ //effettua la mossa contraria di Swap
 		positions[holdx][holdy]=positions[x][y];
