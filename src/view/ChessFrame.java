@@ -9,11 +9,6 @@ import model.Model;
 import controller.ChessController;
 import controller.Controller;
 
-
-
-
-
-
 public class ChessFrame extends JFrame {//Frame principale
 	private final Controller controller;
 	private final Model model= new ChessModel();
@@ -26,20 +21,7 @@ public class ChessFrame extends JFrame {//Frame principale
 		controller.setModel(model);
 		model.setView(chessboard);
 		
-		((ChessModel)model).InitialPosition();
-		
-		 
-		 
-		 
-		
-		
-		
-		
-		
-		
-		
-		
-		 
+		((ChessModel)model).InitialPosition();	 
 	}
 	
 	
@@ -56,9 +38,6 @@ public class ChessFrame extends JFrame {//Frame principale
 		return panel;
 	}
 	
-	
-	
-	
 	private static final long serialVersionUID = 1L;
 
 
@@ -66,16 +45,6 @@ public class ChessFrame extends JFrame {//Frame principale
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-
-
-
-
-
-
-
 
 	public void setController(Controller controller) {
 		// TODO Auto-generated method stub
