@@ -128,6 +128,7 @@ public class ChessModel implements Model{
 					}else{
 						if(turn){
 							view.Check(WKingx,WKingy,true);
+							
 						}else{
 							view.Check(BKingx,BKingy,true);
 						}
