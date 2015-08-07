@@ -16,7 +16,7 @@ public class ChessModel implements Model{
 	private int BKingy;//""
 	private boolean turn; //indica quale giocatore tocca muovere
 	private boolean phase; //indica la fase di movimento 
-	private int positions[][]= new int [8][8];//matrice in cui sono memorizzate le posizione delle pedine, se =-1 allora la casella è vuota
+	private Piece pieces[][]= new Piece [8][8];//matrice in cui sono memorizzate le pedine delle pedine, se null allora la casella è vuota
 	boolean Shine[][]= new boolean[8][8];//matrice in cui vengono memorizzate le caselle valide per una mossa
 	boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per operazioni su Shine
 
