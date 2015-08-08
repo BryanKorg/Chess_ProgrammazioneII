@@ -1,6 +1,7 @@
 package view;
 import controller.Controller;
 import model.Model;
+import model.PColor;
 import model.Piece;
 
 
@@ -12,7 +13,7 @@ public interface View {
 	void LightDown();
 	void Check(int x,int y,boolean stato);
 	void ShowCheckMsg();
-	void PawnUpgrade(int x,int y,boolean turn);
+	void PawnUpgrade(int x,int y,PColor currTurn);
 	public void InitialPosition(Piece pieces[][]);
 
 	

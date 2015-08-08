@@ -369,7 +369,7 @@ if(n==1){
 	((ChessFrame)FRAME).Close();
 }else{
 	
-	//((ChessModel)model).InitialPosition();
+	((ChessModel)model).Inizialize();
 	
 	
 }
@@ -380,7 +380,7 @@ if(n==1){
 }
 
 @Override
-public void PawnUpgrade(int x,int y,boolean turn) {
+public void PawnUpgrade(int x,int y,PColor currTurn) {
 	
 	
 	Object[] possibilities = {"Queen","Knight", "Bishop", "Rook"};
@@ -392,36 +392,34 @@ public void PawnUpgrade(int x,int y,boolean turn) {
 
 	//If a string was returned, say so.
 	if ((s != null) && (s.length() > 0)) {
-	    if(turn){
+	    Piece ret;
 	    if(s.equals("Queen")){
-	    	model.SetUpgradedPawn(x, y, 1);
+	    	
+	    	ret=new Queen(currTurn,(ChessModel)model);
+	   if(currTurn==PColor.WHITE){ 	ret.setImg(images[1]);}else{ret.setImg(images[7]);}
+	    	model.SetUpgradedPawn(x, y,ret );
+	    	
 	    }else if(s.equalsIgnoreCase("Rook")){
-	    	model.SetUpgradedPawn(x, y, 2);
+	    	
+	       ret=new Rook(currTurn,(ChessModel)model);
+	 	   if(currTurn==PColor.WHITE){ 	ret.setImg(images[2]);}else{ret.setImg(images[8]);}
+	 	    	model.SetUpgradedPawn(x, y,ret );
+	    	
 	    }else if(s.equalsIgnoreCase("Knight")){
-	    	model.SetUpgradedPawn(x, y, 4);
+	    	
+	    	   ret=new Knight(currTurn,(ChessModel)model);
+	 	   if(currTurn==PColor.WHITE){ 	ret.setImg(images[4]);}else{ret.setImg(images[10]);}
+	 	    	model.SetUpgradedPawn(x, y,ret );
+	 	    	
 	    }else if(s.equalsIgnoreCase("Bishop")){
-	    	model.SetUpgradedPawn(x, y, 3);
-	}
-	    
-	    }else{
 	    	
-	    	   if(s.equals("Queen")){
-	   	    	model.SetUpgradedPawn(x, y, 7);
-	   	    }else if(s.equalsIgnoreCase("Rook")){
-	   	    	model.SetUpgradedPawn(x, y, 8);
-	   	    }else if(s.equalsIgnoreCase("Knight")){
-	   	    	model.SetUpgradedPawn(x, y, 10);
-	   	    }else if(s.equalsIgnoreCase("Bishop")){
-	   	    	model.SetUpgradedPawn(x, y, 9);
-	   	}
-	    	
-	    	
-	    	
-	    	
-	    	
-	    	
-	    	
+	    	   ret=new Bishop(currTurn,(ChessModel)model);
+	 	   if(currTurn==PColor.WHITE){ 	ret.setImg(images[3]);}else{ret.setImg(images[9]);}
+	 	    	model.SetUpgradedPawn(x, y,ret );
+	 	    	
 	    }
+	    
+	  
 	}
 	
 }

@@ -25,5 +25,5 @@ public interface Model {
 	 * @param y
 	 * @param value
 	 */
-	public void SetUpgradedPawn(int x,int y,int value);  //TODO deve essere di tipo piece?
+	public void SetUpgradedPawn(int x,int y,Piece piece);  //TODO deve essere di tipo piece?
 }

@@ -108,12 +108,12 @@ public class ChessModel implements Model{
 				holdy=y;
 				//Determina le caselle valide per una mossa
 				pieces[x][y].validTiles(x, y);
-				view.LightUp(Shine); phase=false;//Da togliere non appena si è implementato FilterValidTiles
-			/*	if(FilterValidTiles()){ //talgo dalle caselle valide quelle che lascerebbero/metterebbero il re sotto scacco
+				
+				if(FilterValidTiles()){ //talgo dalle caselle valide quelle che lascerebbero/metterebbero il re sotto scacco
 					phase=false;//passa alla seconda fase  della mossa 
 					//Chiede alla view di illuminare le caselle valide	
 					view.LightUp(Shine);
-				}*/
+				}
 			}
 		}else{
 			//Codice della seconda fase di gioco
@@ -128,22 +128,22 @@ public class ChessModel implements Model{
 				//chiede alla view di spegnere le caselle illuminate 
 				view.LightDown();
 				if(currTurn==PColor.WHITE){view.Check(WKingx,WKingy,false);}else{view.Check(BKingx,BKingy,false);}
-				//ifPawnUpgrade(x,y);
+				ifPawnUpgrade(x,y);
 				if(currTurn==PColor.WHITE){currTurn=PColor.BLACK;}else{currTurn=PColor.WHITE;}
 				//Passo il turno seguente
 			}
 
 				//Prima di permettere all'altro giocatore di muovere, controllo se è sotto scacco
 				if(IfCheck()){
-				/*	if(IfCheckMate()){
+					if(IfCheckMate()){
 						view.ShowCheckMsg();	
-					}else{*/
+					}else{
 						if(currTurn==PColor.WHITE){
 							view.Check(WKingx,WKingy,true);
 							
 						}else{
 							view.Check(BKingx,BKingy,true);
-						//}
+						}
 					}
 				}else{
 					if(currTurn==PColor.WHITE){
@@ -223,7 +223,7 @@ public class ChessModel implements Model{
 	}	
 }
 
-/*
+
 	
 	private boolean FilterValidTiles(){
 		//filtra le caselle valide per una mossa togliendo dalle possibilità le caselle che non liberano
@@ -248,22 +248,22 @@ public class ChessModel implements Model{
 			
 			if(count>0){return true;}else{return false;} //true se c'è almeno una casella valida dove spostare la pedina in quesitone
 		
-	}*/
+	}
 	
-/*private void  ifPawnUpgrade(int x,int y){//determina se un pedone ha ragiunto la casella di promozione
+private void  ifPawnUpgrade(int x,int y){//determina se un pedone ha ragiunto la casella di promozione
 										//in caso affermativo chiama la funzione di promozione
 		
-		if((x==0 && pieces[x][y]==5)||(x==7 && pieces[x][y]==11)){
-			view.PawnUpgrade(x,y,turn);
+		if((pieces[x][y] instanceof Pawn && x==0)||(pieces[x][y] instanceof Pawn && x==7)){
+			view.PawnUpgrade(x,y,currTurn);
 			}
 	
 }
 
-public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è stato promosso il pedone
-	pieces[x][y]=value;
+public void SetUpgradedPawn(int x,int y,Piece piece){//setta la pedina con cui è stato promosso il pedone
+	pieces[x][y]=piece;
 	view.Change(pieces);
 }
-	*/
+	
 	
 	private boolean IfCheck(){//Controlla sel il giocatore chiamante è sotto scacco
 		ResetShineMatrix();
@@ -306,16 +306,16 @@ public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è 
 		return false;
 	}
 	
-	/*
+	
 	private boolean IfCheckMate(){
-		int tmp;
-		if(currTurn){
+		Piece tmp;
+		if(currTurn==PColor.WHITE){
 		for(int i=7;i>=0;i--){
 			for(int j=7;j>=0;j--){
 				
-				if(pieces[i][j]<6){
+				if(pieces[i][j]!=null && pieces[i][j].getColor()==PColor.WHITE){
 					ResetShineMatrix();
-					ShineValidated(i,j);
+					pieces[i][j].validTiles(i, j);
 					for(int k=0;k<8;k++){
 						for(int h=0;h<8;h++){
 							if(Shine[k][h]){
@@ -346,9 +346,9 @@ public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è 
 			for(int i=0;i<8;i++){
 				for(int j=0;j<8;j++){
 					
-					if(pieces[i][j]>5){
+					if(pieces[i][j]!=null && pieces[i][j].getColor()==PColor.BLACK){
 						ResetShineMatrix();
-						ShineValidated(i,j);
+						pieces[i][j].validTiles(i, j);
 						for(int k=0;k<8;k++){
 							for(int h=0;h<8;h++){
 								if(Shine[k][h]){
@@ -387,7 +387,7 @@ public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è 
 		
 	}
 	
-	*/
+	
 	public static boolean[][] CopyBooleanMatrix(boolean [][] input) {//copia una matrice booleana
 	    if (input == null)
 	        return null;
@@ -400,11 +400,7 @@ public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è 
 
 
 
-@Override
-public void SetUpgradedPawn(int x, int y, int value) {
-	// TODO Auto-generated method stub
-	
-}
+
 	
 	
 	
