@@ -200,86 +200,10 @@ public class ChessModel implements Model{
 			BKingx=holdx;
 			BKingy=holdy;
 		
-	}
-		
-		
-	}
-
-	private int MoveToValid(int x,int y){ //determina il tipo di casella indicata da x,y
-		//return 0 : Casella vuota, 1: Casella con pedina avversaria, -1: Casella invalida
-		if(x<8 && y<8 && y>=0 && x>=0){ //se la casella è fuori dalla scacchiera la considero invalida
-			if(positions[x][y]==-1){
-				return 0;
-			}else{
-				if(turn){
-					if(positions[x][y]>5){
-						return 1; //devo segnalare che questa piastrella contiene una pedina avversaria
-					}
-				}else{
-					if(positions[x][y]<6){
-						return 1; //devo segnalare che questa piastrella contiene una pedina avversaria
-					}
-				}
-		
-			}
-		}
-
-		return -1; //la casella è invalida
-
+	}	
 }
-	
-	
-	
-	
-	
-	private  void ShineValidated(int x,int y){ //"Riempie" la matrice Shine nelle posizioni di spostamento 
-											//valide a seconda del tipo di pedina
-		switch(positions[x][y]){
-			case 11:
-				 ValidTilesPawn(x,y);
-				break;
-			case 8:
-				ValidTilesRook(x,y);
-				break;
-			case 10:
-				ValidTilesKnight(x,y);
-				break;
-			case 9:
-				ValidTilesBishop(x,y);
-				break;
-			case 6:
-				ValidTilesKing(x,y);
-				break;
-			case 7:
-				ValidTilesQueen(x,y);
-				break;
-			case 5:
-				ValidTilesPawn(x,y);
-				break;
-			case 2:
-				ValidTilesRook(x,y);
-				break;
-			case 4:
-				ValidTilesKnight(x,y);
-				break;
-			case 3:
-				ValidTilesBishop(x,y);
-				break;
-			case 0:
-				ValidTilesKing(x,y);
-				break;
-			case 1:
-				ValidTilesQueen(x,y);
-				break;
-			default:
-				
-			}
-		
-										}
-	
-	
-	
-	
+
+
 	
 	private boolean FilterValidTiles(){
 		//filtra le caselle valide per una mossa togliendo dalle possibilità le caselle che non liberano
