@@ -206,50 +206,7 @@ public class ChessModel implements Model{
 	
 	
 	
-	private  void ShineValidated(int x,int y){ //"Riempie" la matrice Shine nelle posizioni di spostamento 
-											//valide a seconda del tipo di pedina
-		switch(positions[x][y]){
-			case 11:
-				 ValidTilesPawn(x,y);
-				break;
-			case 8:
-				ValidTilesRook(x,y);
-				break;
-			case 10:
-				ValidTilesKnight(x,y);
-				break;
-			case 9:
-				ValidTilesBishop(x,y);
-				break;
-			case 6:
-				ValidTilesKing(x,y);
-				break;
-			case 7:
-				ValidTilesQueen(x,y);
-				break;
-			case 5:
-				ValidTilesPawn(x,y);
-				break;
-			case 2:
-				ValidTilesRook(x,y);
-				break;
-			case 4:
-				ValidTilesKnight(x,y);
-				break;
-			case 3:
-				ValidTilesBishop(x,y);
-				break;
-			case 0:
-				ValidTilesKing(x,y);
-				break;
-			case 1:
-				ValidTilesQueen(x,y);
-				break;
-			default:
-				
-			}
-		
-										}
+	
 	
 	
 	
