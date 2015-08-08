@@ -4,15 +4,18 @@ package model;
  * Classe astratta per definire un pezzo
  */
 public abstract class Piece {
-	PColor color;
-	int nome; 			//TODO Da implementare con Enum? e a cosa serve?
+	protected PColor color;
+	//int nome; 			//TODO Da implementare con Enum? e a cosa serve?
+	protected ChessModel myModel; 
 	
 	/**
 	 * Crea un pezzo 
 	 * @param color colore del pezzo
+	 * @param model il {@link ChessModel} principale
 	 */
-	public Piece(PColor color){
+	public Piece(PColor color,ChessModel model){
 		this.color=color;
+		this.myModel=model;
 	}
 	
 	/**
@@ -30,25 +33,24 @@ public abstract class Piece {
 		return color;
 	}
 	
-	//TODO Utilizziamo anche qui enumeratori? tipo: EMPTY, ENEMY e INVALID?
+	//TODO Utilizziamo anche qui enumeratori? square tipo: EMPTY, ENEMY e INVALID?
 	/**
 	 * Determina il tipo di casella indicata da x,y
-	 * @param piece
-	 * @param color
-	 * @param x
-	 * @param y
+	 * @param x riga
+	 * @param y colonna
 	 * @return 0 : Casella vuota, 1: Casella con pedina avversaria, -1: Casella invalida
 	 */
-	protected int moveToValid(Piece piece,PColor color,int x,int y){
-		if(x<8 && y<8 && y>=0 && x>=0){ //se la casella Ã¨ fuori dalla scacchiera la considero invalida
-			if(piece==null){
+	protected int moveToValid(int x,int y){
+		if(x<8 && y<8 && y>=0 && x>=0){ //se la casella è fuori dalla scacchiera la considero invalida
+			if(myModel.pieces[x][y]==null){
 					return 0;
 			}else{			
-				if(piece.getColor()!=this.color){
-					return 1; //guardare ChessModel.MoveToValid-> Fa la stessa cosa (credo)
+				if(myModel.currTurn!=myModel.pieces[x][y].getColor()){
+					return 1; // Pedina nemica. guardare ChessModel.MoveToValid-> Fa la stessa cosa (credo)
 				}
 			}
 		}
 		return -1; //la casella è invalida	
 	}
+	
 }

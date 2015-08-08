@@ -14,10 +14,11 @@ public class ChessModel implements Model{
 	private int WKingy;//""
 	private int BKingx;//tiene traccia della x del Re nero
 	private int BKingy;//""
-	private boolean turn; //indica quale giocatore tocca muovere
+	private boolean turn; //indica quale giocatore tocca muovere TODO eliminarlo
+	protected PColor currTurn; //Indica il colore del turno corrente
 	private boolean phase; //indica la fase di movimento 
-	private Piece pieces[][]= new Piece [8][8];//matrice in cui sono memorizzate le pedine delle pedine, se null allora la casella è vuota
-	boolean Shine[][]= new boolean[8][8];//matrice in cui vengono memorizzate le caselle valide per una mossa
+	protected Piece pieces[][]= new Piece [8][8];//matrice in cui sono memorizzate le pedine delle pedine, se null allora la casella è vuota
+	protected boolean Shine[][]= new boolean[8][8];//matrice in cui vengono memorizzate le caselle valide per una mossa
 	boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per operazioni su Shine
 
 
@@ -275,8 +276,8 @@ public class ChessModel implements Model{
 	
 	
 	
-	
-	private void ValidTilesPawn(int x, int y){
+	//TODO da eliminare
+	private void ValidTilesPawn(int x, int y){ 
 		//calcola le caselle valide per una mossa per il pedone che si trova nella casella indicata da x,y
 		if(turn){
 			
@@ -323,6 +324,7 @@ public class ChessModel implements Model{
 			
 		
 		}
+	//TODO da eliminare
 	private void ValidTilesKnight(int x,int y){
 		
 		//calcola le caselle valide per una mossa per il cavallo che si trova nella casella indicata da x,y
@@ -345,6 +347,7 @@ public class ChessModel implements Model{
 	
 	}
 	
+	//TODO da eliminare
 	private void ValidTilesRook(int x, int y){
 		//calcola le caselle valide per una mossa per la torre che si trova nella casella indicata da x,y	
 		
@@ -390,6 +393,7 @@ public class ChessModel implements Model{
 		
 		
 	}
+	//TODO da eliminare
 	public void ValidTilesBishop(int x,int y){
 		//calcola le caselle valide per una mossa per l'alfiere che si trova nella casella indicata da x,y
 		
@@ -447,6 +451,7 @@ public class ChessModel implements Model{
 		
 		
 	}
+	//TODO da eliminare
 	private void ValidTilesKing(int x,int y){
 		//calcola le caselle valide per una mossa per il re che si trova nella casella indicata da x,y
 		if(MoveToValid(x+1,y+1)!=-1){Shine[x+1][y+1]=true;}
@@ -462,7 +467,7 @@ public class ChessModel implements Model{
 		
 	}
 
-	
+	//TODO da eliminare
 	private void ValidTilesQueen(int x,int y){
 		//calcola le caselle valide per una mossa per la regina che si trova nella casella indicata da x,y
 		//Siccome la mossa della regina è la fusione delle mosse dell'alfiere e della torre
