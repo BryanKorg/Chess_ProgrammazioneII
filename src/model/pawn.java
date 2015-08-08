@@ -3,9 +3,9 @@ package model;
 /**
  * Classe per il pedone
  */
-public class pawn extends Piece {
+public class Pawn extends Piece {
 
-	public pawn(PColor color, ChessModel model) {
+	public Pawn(PColor color, ChessModel model) {
 		super(color, model);
 	}
 

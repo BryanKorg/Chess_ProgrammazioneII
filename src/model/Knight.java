@@ -1,8 +1,8 @@
 package model;
 
-public class Knigth extends Piece {
+public class Knight extends Piece {
 
-	public Knigth(PColor color, ChessModel model) {
+	public Knight(PColor color, ChessModel model) {
 		super(color, model);
 	}
 

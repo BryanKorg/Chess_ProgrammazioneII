@@ -5,7 +5,6 @@ package model;
  */
 public abstract class Piece {
 	protected PColor color;
-	//int nome; 			//TODO Da implementare con Enum? e a cosa serve?
 	protected ChessModel myModel; 
 	
 	/**
@@ -41,7 +40,7 @@ public abstract class Piece {
 	 * @return 0 : Casella vuota, 1: Casella con pedina avversaria, -1: Casella invalida
 	 */
 	protected int moveToValid(int x,int y){
-		if(x<8 && y<8 && y>=0 && x>=0){ //se la casella è fuori dalla scacchiera la considero invalida
+		if(x<8 && y<8 && y>=0 && x>=0){ //se la casella ï¿½ fuori dalla scacchiera la considero invalida
 			if(myModel.pieces[x][y]==null){
 					return 0;
 			}else{			
@@ -50,7 +49,7 @@ public abstract class Piece {
 				}
 			}
 		}
-		return -1; //la casella è invalida	
+		return -1; //la casella ï¿½ invalida	
 	}
 	
 }

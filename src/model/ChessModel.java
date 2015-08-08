@@ -30,45 +30,45 @@ public class ChessModel implements Model{
 		//La matrice � gi� inizializzata a null	
 		//TODO Cambiare tutte le pedine
 		//Neri
-		positions[0][0]=8;
-		positions[0][1]=10;
-		positions[0][2]=9;
-		positions[0][3]=6;
-		positions[0][4]=7;
-		positions[0][5]=9;
-		positions[0][6]=10;
-		positions[0][7]=8;
-		positions[1][0]=11;
-		positions[1][1]=11;
-		positions[1][2]=11;
-		positions[1][3]=11;
-		positions[1][4]=11;
-		positions[1][5]=11;
-		positions[1][6]=11;
-		positions[1][7]=11;
+		pieces[0][0]=new Rook(PColor.BLACK,this);
+		pieces[0][1]=new Knight(PColor.BLACK,this);
+		pieces[0][2]=new Bishop(PColor.BLACK,this);
+		pieces[0][3]=new King(PColor.BLACK,this);
+		pieces[0][4]=new Queen(PColor.BLACK,this);
+		pieces[0][5]=new Bishop(PColor.BLACK,this);
+		pieces[0][6]=new Knight(PColor.BLACK,this);
+		pieces[0][7]=new Rook(PColor.BLACK,this);
+		pieces[1][0]=11;
+		pieces[1][1]=11;
+		pieces[1][2]=11;
+		pieces[1][3]=11;
+		pieces[1][4]=11;
+		pieces[1][5]=11;
+		pieces[1][6]=11;
+		pieces[1][7]=11;
 		//Bianchi
-		positions[7][0]=2;
-		positions[7][1]=4;
-		positions[7][2]=3;
-		positions[7][3]=0;
-		positions[7][4]=1;
-		positions[7][5]=3;
-		positions[7][6]=4;
-		positions[7][7]=2;
-		positions[6][0]=5;
-		positions[6][1]=5;
-		positions[6][2]=5;
-		positions[6][3]=5;
-		positions[6][4]=5;
-		positions[6][5]=5;
-		positions[6][6]=5;
-		positions[6][7]=5;
+		pieces[7][0]=2;
+		pieces[7][1]=4;
+		pieces[7][2]=3;
+		pieces[7][3]=0;
+		pieces[7][4]=1;
+		pieces[7][5]=3;
+		pieces[7][6]=4;
+		pieces[7][7]=2;
+		pieces[6][0]=5;
+		pieces[6][1]=5;
+		pieces[6][2]=5;
+		pieces[6][3]=5;
+		pieces[6][4]=5;
+		pieces[6][5]=5;
+		pieces[6][6]=5;
+		pieces[6][7]=5;
 		WKingx=7;
 		WKingy=3;
 		BKingx=0;
 		BKingy=3;
 	
-		view.Change(positions);
+		view.Change(pieces);
 		
 		view.Check(0,0,false);
 		view.LightDown();
@@ -109,7 +109,7 @@ public class ChessModel implements Model{
 				Swap(x,y);
 				//prima di modificare definitivamente devo controllare se la mossa libera il re dallo scacco
 		
-				view.Change(positions);
+				view.Change(pieces);
 				//chiede alla view di spegnere le caselle illuminate 
 				view.LightDown();
 				if(turn){view.Check(WKingx,WKingy,false);}else{view.Check(BKingx,BKingy,false);}
@@ -141,7 +141,7 @@ public class ChessModel implements Model{
 	}
 	
 	/**
-	 * Controlla se la casella premuta � valida per l'esecuzione di una mossa
+	 * Controlla se la casella premuta � valida per l'esecuzione di una mossa
 	 * @param x riga
 	 * @param y colonna
 	 * @return {@link Boolean} true se valido, altrimenti false
@@ -182,21 +182,21 @@ public class ChessModel implements Model{
 		}
 		
 		
-		tmp=positions[x][y];
-		positions[x][y]=positions[holdx][holdy];
-		positions[holdx][holdy]=-1;
+		tmp=pieces[x][y];
+		pieces[x][y]=pieces[holdx][holdy];
+		pieces[holdx][holdy]=-1;
 		return tmp; //devo tenere traccua di positions[x][y] perchè necessario in caso di RollBack
 	}
 	private void RollBack(int x,int y,int tmp){ //effettua la mossa contraria di Swap
-		positions[holdx][holdy]=positions[x][y];
-		positions[x][y]=tmp;
+		pieces[holdx][holdy]=pieces[x][y];
+		pieces[x][y]=tmp;
 		
-		if(positions[holdx][holdy]==0 ){
+		if(pieces[holdx][holdy]==0 ){
 		
 			WKingx=holdx;
 			WKingy=holdy;
 			
-		}else if( positions[holdx][holdy]==6) {
+		}else if( pieces[holdx][holdy]==6) {
 			BKingx=holdx;
 			BKingy=holdy;
 		
@@ -233,15 +233,15 @@ public class ChessModel implements Model{
 private void  ifPawnUpgrade(int x,int y){//determina se un pedone ha ragiunto la casella di promozione
 										//in caso affermativo chiama la funzione di promozione
 		
-		if((x==0 && positions[x][y]==5)||(x==7 && positions[x][y]==11)){
+		if((x==0 && pieces[x][y]==5)||(x==7 && pieces[x][y]==11)){
 			view.PawnUpgrade(x,y,turn);
 			}
 	
 }
 
 public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è stato promosso il pedone
-	positions[x][y]=value;
-	view.Change(positions);
+	pieces[x][y]=value;
+	view.Change(pieces);
 }
 	
 	
@@ -253,7 +253,7 @@ public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è 
 				for(int j=0;j<8;j++){
 					
 				if(turn){
-					if(positions[i][j]>5){
+					if(pieces[i][j]>5){
 						turn=false;
 						ShineValidated(i,j);
 						turn=true;
@@ -264,7 +264,7 @@ public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è 
 						
 					}
 				}else{
-					if(positions[i][j]<6 && positions[i][j]>=0 ){
+					if(pieces[i][j]<6 && pieces[i][j]>=0 ){
 						
 						turn=true;
 						ShineValidated(i,j);
@@ -293,7 +293,7 @@ public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è 
 		for(int i=7;i>=0;i--){
 			for(int j=7;j>=0;j--){
 				
-				if(positions[i][j]<6){
+				if(pieces[i][j]<6){
 					ResetShineMatrix();
 					ShineValidated(i,j);
 					for(int k=0;k<8;k++){
@@ -326,7 +326,7 @@ public void SetUpgradedPawn(int x,int y,int value){//setta la pedina con cui è 
 			for(int i=0;i<8;i++){
 				for(int j=0;j<8;j++){
 					
-					if(positions[i][j]>5){
+					if(pieces[i][j]>5){
 						ResetShineMatrix();
 						ShineValidated(i,j);
 						for(int k=0;k<8;k++){
