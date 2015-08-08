@@ -18,7 +18,7 @@ public class ChessModel implements Model{
 	private boolean phase; //indica la fase di movimento 
 	protected Piece pieces[][]= new Piece [8][8];//matrice in cui sono memorizzate le pedine delle pedine, se null allora la casella è vuota
 	protected boolean Shine[][]= new boolean[8][8];//matrice in cui vengono memorizzate le caselle valide per una mossa
-	boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per operazioni su Shine
+	private boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per operazioni su Shine
 
 
 	public ChessModel(){
@@ -140,17 +140,22 @@ public class ChessModel implements Model{
 		}	
 	}
 	
-	//Controlla se la casella premuta è valida per l'esecuzione di una mossa
+	/**
+	 * Controlla se la casella premuta � valida per l'esecuzione di una mossa
+	 * @param x riga
+	 * @param y colonna
+	 * @return {@link Boolean} true se valido, altrimenti false
+	 */
 	private boolean IsValid(int x, int y){ 
-		if(positions[x][y]==-1){
+		if(pieces[x][y]==null){
 			return false;
 		}
-		if((turn==true && positions[x][y]>5) || (turn==false && positions[x][y]<6) ){
+		if(pieces[x][y].getColor()!=currTurn){
 			return false;	
 		}
-		
 		return true;
 	}
+	
 	private void ResetShineMatrix(){
 		//Resetta la matrice delle caselle valide
 				for(int i=0;i<8;i++){
