@@ -3,12 +3,14 @@ package model;
 import view.View;
 
 public interface Model {
+
 	
 	/**
 	 * Effettua un cambiamento date le coordinate del quadrato scelto
 	 * @param x riga
 	 * @param y colonna
 	 */
+	
 	public void MoveCheck(int x,int y);
 	
 	/**
