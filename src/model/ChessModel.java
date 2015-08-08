@@ -200,28 +200,7 @@ public class ChessModel implements Model{
 		
 	}
 
-	private int MoveToValid(int x,int y){ //determina il tipo di casella indicata da x,y
-		//return 0 : Casella vuota, 1: Casella con pedina avversaria, -1: Casella invalida
-		if(x<8 && y<8 && y>=0 && x>=0){ //se la casella è fuori dalla scacchiera la considero invalida
-			if(positions[x][y]==-1){
-				return 0;
-			}else{
-				if(turn){
-					if(positions[x][y]>5){
-						return 1; //devo segnalare che questa piastrella contiene una pedina avversaria
-					}
-				}else{
-					if(positions[x][y]<6){
-						return 1; //devo segnalare che questa piastrella contiene una pedina avversaria
-					}
-				}
-		
-			}
-		}
-
-		return -1; //la casella è invalida
-
-}
+	
 	
 	
 	
