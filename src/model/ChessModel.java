@@ -14,7 +14,6 @@ public class ChessModel implements Model{
 	private int WKingy;//""
 	private int BKingx;//tiene traccia della x del Re nero
 	private int BKingy;//""
-	private boolean turn; //indica quale giocatore tocca muovere TODO eliminarlo
 	protected PColor currTurn; //Indica il colore del turno corrente
 	private boolean phase; //indica la fase di movimento 
 	protected Piece pieces[][]= new Piece [8][8];//matrice in cui sono memorizzate le pedine delle pedine, se null allora la casella è vuota
@@ -28,7 +27,7 @@ public class ChessModel implements Model{
 	}
 	
 	public void InitialPosition(){
-		//La matrice � gi� inizializzata a null	
+		//La matrice � gi� inizializzata a null	
 		//TODO Cambiare tutte le pedine
 		//Neri
 		positions[0][0]=8;
@@ -276,209 +275,7 @@ public class ChessModel implements Model{
 	
 	
 	
-	//TODO da eliminare
-	private void ValidTilesPawn(int x, int y){ 
-		//calcola le caselle valide per una mossa per il pedone che si trova nella casella indicata da x,y
-		if(turn){
-			
-					if(MoveToValid(x-1,y)==0){
-					Shine[x-1][y]=true;
-					
-					}
-				
-					if(MoveToValid(x-1,y+1)==1 ){
-						Shine[x-1][y+1]=true;
-						
-					}
-				
-					if(MoveToValid(x-1,y-1)==1){
-						Shine[x-1][y-1]=true;
-					}
 	
-		
-		}else{
-			
-			
-				if(MoveToValid(x+1,y)==0){
-				Shine[x+1][y]=true;
-				
-				}
-			
-				if(MoveToValid(x+1,y+1)==1 ){
-				Shine[x+1][y+1]=true;
-				}
-			
-				if(MoveToValid(x+1,y-1)==1){
-				Shine[x+1][y-1]=true;
-				}
-			
-			
-			
-			
-			
-			
-			
-		}
-		
-		
-			
-		
-		}
-	//TODO da eliminare
-	private void ValidTilesKnight(int x,int y){
-		
-		//calcola le caselle valide per una mossa per il cavallo che si trova nella casella indicata da x,y
-		
-			
-				if(MoveToValid(x+1,y+2)!=-1){Shine[x+1][y+2]=true;}
-				if(MoveToValid(x+1,y-2)!=-1){Shine[x+1][y-2]=true;}
-				if(MoveToValid(x+2,y-1)!=-1){Shine[x+2][y-1]=true;}
-				if(MoveToValid(x+2,y+1)!=-1){Shine[x+2][y+1]=true;}
-				if(MoveToValid(x-1,y-2)!=-1){Shine[x-1][y-2]=true;}
-				if(MoveToValid(x-1,y+2)!=-1){Shine[x-1][y+2]=true;}
-				if(MoveToValid(x-2,y-1)!=-1){Shine[x-2][y-1]=true;}
-				if(MoveToValid(x-2,y+1)!=-1){Shine[x-2][y+1]=true;}
-				
-			
-			
-			
-		
-		
-	
-	}
-	
-	//TODO da eliminare
-	private void ValidTilesRook(int x, int y){
-		//calcola le caselle valide per una mossa per la torre che si trova nella casella indicata da x,y	
-		
-		int ret;
-		int c=x;
-		int r=y;
-		//Verso destra
-		c++;
-		while((ret=MoveToValid(c, r))!=-1){
-			Shine[c][r]=true;
-			if(ret==1){break;}
-			
-			c++;
-			
-		}
-		c=x;
-		r=y;
-		//Verso sinistra
-		c--;
-		while((ret=MoveToValid(c, r))!=-1){
-			Shine[c][r]=true;
-			if(ret==1){break;}
-			c--;
-		}
-		//in su
-		c=x;
-		r=y;
-		r--;
-		while((ret=MoveToValid(c, r))!=-1){
-			Shine[c][r]=true;
-			if(ret==1){break;}
-			r--;
-		}
-		//in giù
-		c=x;
-		r=y;
-		r++;
-		while((ret=MoveToValid(c, r))!=-1){
-			Shine[c][r]=true;
-			if(ret==1){break;}
-			r++;
-		}
-		
-		
-	}
-	//TODO da eliminare
-	public void ValidTilesBishop(int x,int y){
-		//calcola le caselle valide per una mossa per l'alfiere che si trova nella casella indicata da x,y
-		
-		int ret;
-		int c=x;
-		int r=y;
-		
-		//diagonale giù+destra
-		r++;
-		c++;
-		while((ret=MoveToValid(c, r))!=-1){
-			Shine[c][r]=true;
-			if(ret==1){break;}
-			r++;
-			c++;
-			
-		}
-		//diagonale su+destra
-		c=x;
-		r=y;
-		r--;
-		c++;
-		while((ret=MoveToValid(c, r))!=-1){
-			Shine[c][r]=true;
-			if(ret==1){break;}
-			r--;
-			c++;
-			
-		}
-		//diagonale su+sinistra
-		c=x;
-		r=y;
-		r--;
-		c--;
-		while((ret=MoveToValid(c, r))!=-1){
-			Shine[c][r]=true;
-			if(ret==1){break;}
-			r--;
-			c--;
-			
-		}
-		
-		//diagonale giù+sinistra
-		c=x;
-		r=y;
-		r++;
-		c--;
-		while((ret=MoveToValid(c, r))!=-1){
-			Shine[c][r]=true;
-			if(ret==1){break;}
-			r++;
-			c--;
-			
-		}
-		
-		
-	}
-	//TODO da eliminare
-	private void ValidTilesKing(int x,int y){
-		//calcola le caselle valide per una mossa per il re che si trova nella casella indicata da x,y
-		if(MoveToValid(x+1,y+1)!=-1){Shine[x+1][y+1]=true;}
-		if(MoveToValid(x+1,y-1)!=-1){Shine[x+1][y-1]=true;}
-		if(MoveToValid(x-1,y+1)!=-1){Shine[x-1][y+1]=true;}
-		if(MoveToValid(x-1,y-1)!=-1){Shine[x-1][y-1]=true;}
-		if(MoveToValid(x,y-1)!=-1){Shine[x][y-1]=true;}
-		if(MoveToValid(x,y+1)!=-1){Shine[x][y+1]=true;}
-		if(MoveToValid(x+1,y)!=-1){Shine[x+1][y]=true;}
-		if(MoveToValid(x-1,y)!=-1){Shine[x-1][y]=true;}
-		
-		
-		
-	}
-
-	//TODO da eliminare
-	private void ValidTilesQueen(int x,int y){
-		//calcola le caselle valide per una mossa per la regina che si trova nella casella indicata da x,y
-		//Siccome la mossa della regina è la fusione delle mosse dell'alfiere e della torre
-		//basta chiamare le funzioni che calcolano le caselle valide per alfiere e torre
-		ValidTilesBishop(x,y);
-		ValidTilesRook(x,y);
-		
-		
-		
-		
-	}
 	private boolean FilterValidTiles(){
 		//filtra le caselle valide per una mossa togliendo dalle possibilità le caselle che non liberano
 		//il re dallo scacco o che lo renderebbero sotto scacco
