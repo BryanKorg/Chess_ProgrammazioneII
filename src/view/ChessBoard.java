@@ -21,8 +21,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import model.Bishop;
 import model.ChessModel;
+import model.King;
+import model.Knight;
 import model.Model;
+import model.PColor;
+import model.Pawn;
+import model.Piece;
+import model.Queen;
+import model.Rook;
 import controller.Controller;
 public class ChessBoard extends JPanel implements View {
 
@@ -72,7 +80,7 @@ private void CreateMenu(){
 		public void actionPerformed(ActionEvent arg0) {
 			
 			
-			((ChessModel)model).InitialPosition();
+			//((ChessModel)model).InitialPosition();
 		}
     });
 JMenuItem eMenuItem1 = new JMenuItem("Exit");
@@ -112,45 +120,54 @@ JMenuItem eMenuItem1 = new JMenuItem("Exit");
 	
 	
 }
+	public void InitialPosition(Piece pieces[][]){
+		pieces[0][0].setImg(images[8]);
+		pieces[0][1].setImg(images[10]);
+		pieces[0][2].setImg(images[9]);
+		pieces[0][3].setImg(images[6]);
+		pieces[0][4].setImg(images[7]);
+		pieces[0][5].setImg(images[9]);
+		pieces[0][6].setImg(images[10]);
+		pieces[0][7].setImg(images[8]);
+		pieces[1][0].setImg(images[11]);
+		pieces[1][1].setImg(images[11]);
+		pieces[1][2].setImg(images[11]);
+		pieces[1][3].setImg(images[11]);
+		pieces[1][4].setImg(images[11]);
+		pieces[1][5].setImg(images[11]);
+		pieces[1][6].setImg(images[11]);
+		pieces[1][7].setImg(images[11]);
+		//Bianchi
+		pieces[7][0].setImg(images[2]);
+		pieces[7][1].setImg(images[4]);
+		pieces[7][2].setImg(images[3]);
+		pieces[7][3].setImg(images[0]);
+		pieces[7][4].setImg(images[1]);
+		pieces[7][5].setImg(images[3]);
+		pieces[7][6].setImg(images[4]);
+		pieces[7][7].setImg(images[2]);
+		pieces[6][0].setImg(images[5]);
+		pieces[6][1].setImg(images[5]);
+		pieces[6][2].setImg(images[5]);
+		pieces[6][3].setImg(images[5]);
+		pieces[6][4].setImg(images[5]);
+		pieces[6][5].setImg(images[5]);
+		pieces[6][6].setImg(images[5]);
+		pieces[6][7].setImg(images[5]);
+		Change(pieces);
+		
+	}
 	
-	//TODO da cambiare con l'implementazione in Piece
-	public void Change(int[][] positions){//cambia la posizione grafica delle pedine
+	public void Change(Piece[][] pieces){//cambia la posizione grafica delle pedine
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
-
-		switch(positions[i][j]){
-		case 11:tiles[i][j].setImg(images[11]);
-				break;
-		case 8:tiles[i][j].setImg(images[8]);
-		break;
-		case 10:tiles[i][j].setImg(images[10]);
-		break;
-		case 9:tiles[i][j].setImg(images[9]);
-		break;
-		case 6:tiles[i][j].setImg(images[6]);
-		break;
-		case 7:tiles[i][j].setImg(images[7]);
-		break;
-		
-		case 5:tiles[i][j].setImg(images[5]);
-		break;
-		case 2:tiles[i][j].setImg(images[2]);
-		break;
-		case 4:tiles[i][j].setImg(images[4]);
-		break;
-		case 3:tiles[i][j].setImg(images[3]);
-		break;
-		case 0:tiles[i][j].setImg(images[0]);
-		break;
-		case 1:tiles[i][j].setImg(images[1]);
-		break;
-		default:
-			tiles[i][j].setImg(null);}
-	
+				if(pieces[i][j]!=null){
+				tiles[i][j].setImg(pieces[i][j].getImg());
+				}else{
+					tiles[i][j].setImg(null);
 				}
-		
 			}
-		//}
+			}
 		
 		this.repaint();
 		
@@ -352,7 +369,7 @@ if(n==1){
 	((ChessFrame)FRAME).Close();
 }else{
 	
-	((ChessModel)model).InitialPosition();
+	//((ChessModel)model).InitialPosition();
 	
 	
 }

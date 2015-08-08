@@ -1,12 +1,14 @@
 package model;
 
+import java.awt.Image;
+
 /**
  * Classe astratta per definire un pezzo
  */
 public abstract class Piece {
 	protected PColor color;
 	protected ChessModel myModel; 
-	
+	protected Image img;
 	/**
 	 * Crea un pezzo 
 	 * @param color colore del pezzo
@@ -15,6 +17,7 @@ public abstract class Piece {
 	public Piece(PColor color,ChessModel model){
 		this.color=color;
 		this.myModel=model;
+		this.img=img;
 	}
 	
 	/**
@@ -31,7 +34,12 @@ public abstract class Piece {
 	public PColor getColor(){
 		return color;
 	}
-	
+	public void setImg(Image img){
+		this.img=img;
+	}
+	public Image getImg(){
+		return img;
+	}
 	//TODO Utilizziamo anche qui enumeratori? square tipo: EMPTY, ENEMY e INVALID?
 	/**
 	 * Determina il tipo di casella indicata da x,y

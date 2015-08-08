@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Image;
+
 public class Knight extends Piece {
 
 	public Knight(PColor color, ChessModel model) {

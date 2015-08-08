@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Image;
+
 public class Rook extends Piece {
 
 	public Rook(PColor color, ChessModel model) {
@@ -37,7 +39,7 @@ public class Rook extends Piece {
 			r--;
 		}
 
-		//in giù
+		//in giï¿½
 		r=y+1; //resetto r e aggiungo 1
 		while((ret=moveToValid(c, r))!=-1){
 			myModel.Shine[c][r]=true;

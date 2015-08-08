@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Image;
+
 public class Queen extends Piece  {
 
 	public Queen(PColor color, ChessModel model) {
@@ -8,7 +10,7 @@ public class Queen extends Piece  {
 
 	@Override
 	public void validTiles(int x, int y) {
-		// TODO così va bene?
+		// TODO cosï¿½ va bene?
 		validTilesDiagonal(x, y);
 		validTilesCross(x, y);
 	}
@@ -24,7 +26,7 @@ public class Queen extends Piece  {
 		int r=y;
 		
 		//TODO rifare gli assegnamenti tipo quelli su Rook?
-		//diagonale giù+destra
+		//diagonale giï¿½+destra
 		r++;
 		c++;
 		while((ret=moveToValid(c, r))!=-1){
@@ -58,7 +60,7 @@ public class Queen extends Piece  {
 			c--;
 		}
 		
-		//diagonale giù+sinistra
+		//diagonale giï¿½+sinistra
 		c=x;
 		r=y;
 		r++;
@@ -106,7 +108,7 @@ public class Queen extends Piece  {
 			r--;
 		}
 
-		//in giù
+		//in giï¿½
 		r=y+1; //resetto r e aggiungo 1
 		while((ret=moveToValid(c, r))!=-1){
 			myModel.Shine[c][r]=true;
