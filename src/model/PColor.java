@@ -1,6 +1,9 @@
 package model;
 
+/**
+ * Colore del pezzo
+ */
 public enum PColor {
-White,
-Black;
+	WHITE,
+	BLACK;
 }

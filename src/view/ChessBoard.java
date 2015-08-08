@@ -113,7 +113,7 @@ JMenuItem eMenuItem1 = new JMenuItem("Exit");
 	
 }
 	
-	
+	//TODO da cambiare con l'implementazione in Piece
 	public void Change(int[][] positions){//cambia la posizione grafica delle pedine
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){

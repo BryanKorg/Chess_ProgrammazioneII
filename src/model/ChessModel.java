@@ -27,13 +27,8 @@ public class ChessModel implements Model{
 	}
 	
 	public void InitialPosition(){
-		
-		for(int i=0;i<8;i++){
-			for(int j=0;j<8;j++){
-				positions[i][j]=-1;
-			}
-		}
-		
+		//La matrice è già inizializzata a null	
+		//TODO Cambiare tutte le pedine
 		//Neri
 		positions[0][0]=8;
 		positions[0][1]=10;
