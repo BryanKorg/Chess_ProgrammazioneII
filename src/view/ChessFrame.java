@@ -20,8 +20,8 @@ public class ChessFrame extends JFrame {//Frame principale
 		this.controller= new ChessController(chessboard);
 		controller.setModel(model);
 		model.setView(chessboard);
-		
-		((ChessModel)model).InitialPosition();	 
+		((ChessModel)model).Inizialize();
+	//	((ChessModel)model).InitialPosition();	 
 	}
 	
 	

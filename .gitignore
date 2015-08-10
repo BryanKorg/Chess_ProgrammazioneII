@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 bin/
+=======
+/bin/
+*.class
+>>>>>>> Chess_Fork1
