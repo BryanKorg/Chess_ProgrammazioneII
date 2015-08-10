@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Image;
-
 public class Queen extends Piece  {
 
 	public Queen(PColor color, ChessModel model) {
@@ -10,7 +8,6 @@ public class Queen extends Piece  {
 
 	@Override
 	public void validTiles(int x, int y) {
-		// TODO cos� va bene?
 		validTilesDiagonal(x, y);
 		validTilesCross(x, y);
 	}

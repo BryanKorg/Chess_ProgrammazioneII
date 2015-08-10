@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Image;
-
 /**
  * Classe per il pedone
  */

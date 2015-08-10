@@ -9,27 +9,26 @@ import model.Model;
 import controller.ChessController;
 import controller.Controller;
 
-public class ChessFrame extends JFrame {//Frame principale
+/**
+ * Frame Principale di gioco
+ */
+public class ChessFrame extends JFrame {
 	private final Controller controller;
 	private final Model model= new ChessModel();
 	private View chessboard;
+
 	public ChessFrame(){//inizializza le altre componenti 
 		setTitle("Chess");
-	
 		chessboard= AddChessBoard();
 		this.controller= new ChessController(chessboard);
 		controller.setModel(model);
 		model.setView(chessboard);
-		((ChessModel)model).Inizialize();
-	//	((ChessModel)model).InitialPosition();	 
+		model.initChessboard();
 	}
-	
-	
 	
 	public void Close(){
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
-	
 	
 	private View AddChessBoard(){
 		ChessBoard panel= new ChessBoard(this,model);
@@ -40,34 +39,9 @@ public class ChessFrame extends JFrame {//Frame principale
 	
 	private static final long serialVersionUID = 1L;
 
-
 	public Model getModel() {
-		// TODO Auto-generated method stub
-		return null;
+		return model;
 	}
-
-	public void setController(Controller controller) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-
-
-
-
-
-
-
-
-
-
-	
-
- 
-
-
 
 }
 

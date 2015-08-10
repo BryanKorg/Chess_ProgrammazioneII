@@ -13,9 +13,6 @@ import javax.swing.ImageIcon;
 
 import view.View;
 
-/**
- * 
- */
 public class ChessModel implements Model{
 	private Image images[]= new Image[12];	
 	private View view;
@@ -31,15 +28,12 @@ public class ChessModel implements Model{
 	protected boolean Shine[][]= new boolean[8][8];//matrice in cui vengono memorizzate le caselle valide per una mossa
 	private boolean HoldShine[][]= new boolean[8][8];//matrice di supporto temporaneo per operazioni su Shine
 
-
-	public ChessModel(){
-		
-		
+	public ChessModel(){	
 	}
 	
-	public void Inizialize(){
-		//La matrice � gi� inizializzata a null	
-		//TODO Cambiare tutte le pedine
+	public void initChessboard(){
+		//Inizializzo la matrice a null
+		pieces= new Piece [8][8];
 		//Neri
 		pieces[0][0]=new Rook(PColor.BLACK,this);
 		pieces[0][1]=new Knight(PColor.BLACK,this);
@@ -79,17 +73,13 @@ public class ChessModel implements Model{
 		BKingx=0;
 		BKingy=3;
 	
-		view.InitialPosition(pieces);
+		view.initialPosition(pieces);
 		
-		view.Check(0,0,false);
-		view.LightDown();
+		view.check(0,0,false);
+		view.lightDown();
 		currTurn=PColor.WHITE;
 		phase=true;
 	}
-	
-	
-	
-	
 	
 	@Override
 	public void setView(View view) {		
@@ -98,8 +88,6 @@ public class ChessModel implements Model{
 
 	@Override
 	public void MoveCheck(int x, int y) {
-		
-		
 		if(phase){
 			if(IsValid(x,y)){//Controlla se la caselle premuta è valida per una mossa
 				//Resetta le matrice delle caselle valide per una mossa
@@ -113,22 +101,20 @@ public class ChessModel implements Model{
 				if(FilterValidTiles()){ //talgo dalle caselle valide quelle che lascerebbero/metterebbero il re sotto scacco
 					phase=false;//passa alla seconda fase  della mossa 
 					//Chiede alla view di illuminare le caselle valide	
-					view.LightUp(Shine);
+					view.lightUp(Shine);
 				}
 			}
 		}else{
 			//Codice della seconda fase di gioco
 			if(!Shine[x][y]){
-						view.LightDown();
+						view.lightDown();
 			}else{
 				//effettua la modifa sulla posizione delle pedine sulla matrice delle posizioni
 				Swap(x,y);
-				
-		
-				view.Change(pieces);
+				view.change(pieces);
 				//chiede alla view di spegnere le caselle illuminate 
-				view.LightDown();
-				if(currTurn==PColor.WHITE){view.Check(WKingx,WKingy,false);}else{view.Check(BKingx,BKingy,false);}
+				view.lightDown();
+				if(currTurn==PColor.WHITE){view.check(WKingx,WKingy,false);}else{view.check(BKingx,BKingy,false);}
 				ifPawnUpgrade(x,y);
 				if(currTurn==PColor.WHITE){currTurn=PColor.BLACK;}else{currTurn=PColor.WHITE;}
 				//Passo il turno seguente
@@ -137,20 +123,20 @@ public class ChessModel implements Model{
 				//Prima di permettere all'altro giocatore di muovere, controllo se è sotto scacco
 				if(IfCheck()){
 					if(IfCheckMate()){
-						view.ShowCheckMsg();	
+						view.showCheckMsg();	
 					}else{
 						if(currTurn==PColor.WHITE){
-							view.Check(WKingx,WKingy,true);
+							view.check(WKingx,WKingy,true);
 							
 						}else{
-							view.Check(BKingx,BKingy,true);
+							view.check(BKingx,BKingy,true);
 						}
 					}
 				}else{
 					if(currTurn==PColor.WHITE){
-						view.Check(WKingx,WKingy,false);
+						view.check(WKingx,WKingy,false);
 					}else{
-						view.Check(BKingx,BKingy,false);
+						view.check(BKingx,BKingy,false);
 					}
 				}
 				phase=true; //torno alla phase iniziale della mossa
@@ -255,14 +241,14 @@ private void  ifPawnUpgrade(int x,int y){//determina se un pedone ha ragiunto la
 										//in caso affermativo chiama la funzione di promozione
 		
 		if((pieces[x][y] instanceof Pawn && x==0)||(pieces[x][y] instanceof Pawn && x==7)){
-			view.PawnUpgrade(x,y,currTurn);
+			view.pawnUpgrade(x,y,currTurn);
 			}
 	
 }
 
 public void SetUpgradedPawn(int x,int y,Piece piece){//setta la pedina con cui è stato promosso il pedone
 	pieces[x][y]=piece;
-	view.Change(pieces);
+	view.change(pieces);
 }
 	
 	

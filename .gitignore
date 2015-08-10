@@ -3,3 +3,4 @@
 
 *.class
 bin/model/ChessModel.class
+*.class

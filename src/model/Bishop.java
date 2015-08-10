@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Image;
-
 public class Bishop extends Piece {
 
 	public Bishop(PColor color, ChessModel model) {
@@ -14,7 +12,6 @@ public class Bishop extends Piece {
 		int c=x;
 		int r=y;
 		
-		//TODO rifare gli assegnamenti tipo quelli su Rook?
 		//diagonale gi�+destra
 		r++;
 		c++;

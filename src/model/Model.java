@@ -26,4 +26,9 @@ public interface Model {
 	 * @param value
 	 */
 	public void SetUpgradedPawn(int x,int y,Piece piece);  //TODO deve essere di tipo piece?
+	
+	/**
+	 * Inizializza la scacchiera per una nuova partita
+	 */
+	public void initChessboard();
 }

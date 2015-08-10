@@ -9,7 +9,7 @@ import javax.swing.border.Border;
 
 
 /**
- * 
+ *  Quadrato della scacchiera
  */
 public class Tile extends JPanel {
 
@@ -33,7 +33,7 @@ public class Tile extends JPanel {
 		
 		if(image!=null){	
 			//disegna l'immagine
-		g.drawImage(image,0,0,this.getWidth(),this.getHeight(),null);
+			g.drawImage(image,0,0,this.getWidth(),this.getHeight(),null);
 		}
 		this.setBackground(c);
 		this.repaint();//necessario 	

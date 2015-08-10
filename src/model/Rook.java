@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Image;
-
 public class Rook extends Piece {
 
 	public Rook(PColor color, ChessModel model) {
