@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-bin/
-=======
 /bin/
 *.class
->>>>>>> Chess_Fork1
+
+*.class
+bin/model/ChessModel.class
