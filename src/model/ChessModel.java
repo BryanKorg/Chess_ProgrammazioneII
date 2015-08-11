@@ -1,20 +1,10 @@
 
 package model;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.FilteredImageSource;
-import java.awt.image.ImageFilter;
-import java.awt.image.ImageProducer;
-import java.awt.image.RGBImageFilter;
-
-import javax.swing.ImageIcon;
 
 import view.View;
 
 public class ChessModel implements Model{
-	private Image images[]= new Image[12];	
 	private View view;
 	private int holdx; //tiene traccia della x della pedina che si è scelto di muovere nella phase precedente di gioco (phase=true)
 	private int holdy;//tiene traccia della y " "
@@ -78,6 +68,7 @@ public class ChessModel implements Model{
 		view.check(0,0,false);
 		view.lightDown();
 		currTurn=PColor.WHITE;
+		view.changeMenuColor(PColor.WHITE);
 		phase=true;
 	}
 	
@@ -116,7 +107,12 @@ public class ChessModel implements Model{
 				view.lightDown();
 				if(currTurn==PColor.WHITE){view.check(WKingx,WKingy,false);}else{view.check(BKingx,BKingy,false);}
 				ifPawnUpgrade(x,y);
-				if(currTurn==PColor.WHITE){currTurn=PColor.BLACK;}else{currTurn=PColor.WHITE;}
+				if(currTurn==PColor.WHITE){
+					view.changeMenuColor(PColor.BLACK);
+					currTurn=PColor.BLACK;
+				}else{
+					view.changeMenuColor(PColor.WHITE);
+					currTurn=PColor.WHITE;}
 				//Passo il turno seguente
 			}
 

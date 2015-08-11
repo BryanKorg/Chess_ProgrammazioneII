@@ -14,21 +14,20 @@ import java.awt.image.ImageFilter;
 import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import model.Bishop;
 import model.ChessModel;
-import model.King;
 import model.Knight;
 import model.Model;
 import model.PColor;
-import model.Pawn;
 import model.Piece;
 import model.Queen;
 import model.Rook;
@@ -39,10 +38,10 @@ public class ChessBoard extends JPanel implements View {
 	private  Controller controller;
 	private Tile tiles[][]= new Tile[8][8];
 	private Image images[]= new Image[12];
-	private JFrame FRAME;
+	private ChessFrame FRAME;
 	private Model model;
-	
-	public ChessBoard(JFrame FRAME,Model model){	
+	private JMenuBar menubar;
+	public ChessBoard(ChessFrame FRAME,Model model){	
 		this.model=model;
 		this.FRAME=FRAME;
 		setLayout(new GridLayout(8,8));
@@ -56,17 +55,22 @@ public class ChessBoard extends JPanel implements View {
 	}
 
 	private void CreateMenu(){
-		JMenuBar menubar;
+		
 		JMenu menu;
 		
-		//Create the menu bar.
-		menubar = new JMenuBar();
-	
-		//Build the first menu.
+		//Crea la barra dei menu
+	menubar = new JMenuBar();
+	menubar.setBackground(Color.white);
+	Border blackline = BorderFactory.createLineBorder(Color.black, 1);
+	menubar.setBorder(blackline);
+		//Crea l'unico menu
 		menu = new JMenu("Chess");
-		
+		menu.setBackground(Color.LIGHT_GRAY);
 		menu.setMnemonic(KeyEvent.VK_C);
 		JMenuItem eMenuItem = new JMenuItem("New Game");
+		
+		
+	
 		
 		eMenuItem.setMnemonic(KeyEvent.VK_N);
 		eMenuItem.addActionListener(new ActionListener() {
@@ -82,7 +86,7 @@ public class ChessBoard extends JPanel implements View {
 		eMenuItem1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				((ChessFrame)FRAME).Close();
+				FRAME.Close();
 			}
 	    });
 		
@@ -90,6 +94,8 @@ public class ChessBoard extends JPanel implements View {
 		menu.addSeparator();
 		menu.add(eMenuItem1);
 		menubar.add(menu);
+		
+		
 		FRAME.setJMenuBar(menubar);
 	}
 	
@@ -328,7 +334,13 @@ public class ChessBoard extends JPanel implements View {
 		    } 
 		}
 	}
-	
+	public void changeMenuColor(PColor color){
+		if(color==PColor.WHITE){
+			menubar.setBackground(Color.WHITE);
+		}else{
+			menubar.setBackground(Color.BLACK);
+		}
+	}
 	private static final long serialVersionUID = 1L;
 	
 }

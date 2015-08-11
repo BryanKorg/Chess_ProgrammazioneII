@@ -63,4 +63,9 @@ public interface View {
 	 */
 	public void initialPosition(Piece pieces[][]);
 	
+	/**
+	 * Cambia il colore del menu per indicare chi tocca a muovere
+	 * @param color
+	 */
+	public void changeMenuColor(PColor color);
 }
