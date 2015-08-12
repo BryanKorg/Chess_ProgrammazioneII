@@ -29,8 +29,8 @@ public class ChessModel implements Model{
 		pieces[0][0]=new Rook(PColor.BLACK,this);
 		pieces[0][1]=new Knight(PColor.BLACK,this);
 		pieces[0][2]=new Bishop(PColor.BLACK,this);
-		pieces[0][3]=new King(PColor.BLACK,this);
-		pieces[0][4]=new Queen(PColor.BLACK,this);
+		pieces[0][3]=new Queen(PColor.BLACK,this);
+		pieces[0][4]=new King(PColor.BLACK,this);
 		pieces[0][5]=new Bishop(PColor.BLACK,this);
 		pieces[0][6]=new Knight(PColor.BLACK,this);
 		pieces[0][7]=new Rook(PColor.BLACK,this);
@@ -46,8 +46,8 @@ public class ChessModel implements Model{
 		pieces[7][0]=new Rook(PColor.WHITE,this);
 		pieces[7][1]=new Knight(PColor.WHITE,this);
 		pieces[7][2]=new Bishop(PColor.WHITE,this);
-		pieces[7][3]=new King(PColor.WHITE,this);
-		pieces[7][4]=new Queen(PColor.WHITE,this);
+		pieces[7][3]=new Queen(PColor.WHITE,this);
+		pieces[7][4]=new King(PColor.WHITE,this);
 		pieces[7][5]=new Bishop(PColor.WHITE,this);
 		pieces[7][6]=new Knight(PColor.WHITE,this);
 		pieces[7][7]=new Rook(PColor.WHITE,this);
@@ -60,9 +60,9 @@ public class ChessModel implements Model{
 		pieces[6][6]=new Pawn(PColor.WHITE,this);
 		pieces[6][7]=new Pawn(PColor.WHITE,this);
 		WKingx=7;
-		WKingy=3;
+		WKingy=4;
 		BKingx=0;
-		BKingy=3;
+		BKingy=4;
 	
 		view.initialPosition(pieces);
 		
