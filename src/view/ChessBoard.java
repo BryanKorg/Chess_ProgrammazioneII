@@ -95,7 +95,6 @@ public class ChessBoard extends JPanel implements View {
 		menu.add(eMenuItem1);
 		menubar.add(menu);
 		
-		
 		FRAME.setJMenuBar(menubar);
 	}
 	

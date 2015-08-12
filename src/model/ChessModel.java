@@ -21,6 +21,7 @@ public class ChessModel implements Model{
 	public ChessModel(){	
 	}
 	
+	@Override
 	public void initChessboard(){
 		//Inizializzo la matrice a null
 		pieces= new Piece [8][8];
@@ -115,34 +116,29 @@ public class ChessModel implements Model{
 					currTurn=PColor.WHITE;}
 				//Passo il turno seguente
 			}
-
-				//Prima di permettere all'altro giocatore di muovere, controllo se è sotto scacco
-				if(IfCheck()){
-					if(IfCheckMate()){
-						view.showCheckMsg();	
-					}else{
-						if(currTurn==PColor.WHITE){
-							view.check(WKingx,WKingy,true);
-							
-						}else{
-							view.check(BKingx,BKingy,true);
-						}
-					}
+			
+			//Prima di permettere all'altro giocatore di muovere, controllo se è sotto scacco
+			if(IfCheck()){
+				if(IfCheckMate()){
+					view.showCheckMsg();	
 				}else{
 					if(currTurn==PColor.WHITE){
-						view.check(WKingx,WKingy,false);
+						view.check(WKingx,WKingy,true);
 					}else{
-						view.check(BKingx,BKingy,false);
+						view.check(BKingx,BKingy,true);
 					}
 				}
-				phase=true; //torno alla phase iniziale della mossa
+			}else{
+				if(currTurn==PColor.WHITE){
+					view.check(WKingx,WKingy,false);
+				}else{
+					view.check(BKingx,BKingy,false);
+				}
 			}
-			
-		}	
+			phase=true; //torno alla phase iniziale della mossa
+		}		
+	}	
 		
-		
-	
-	
 	/**
 	 * Controlla se la casella premuta � valida per l'esecuzione di una mossa
 	 * @param x riga
@@ -159,63 +155,69 @@ public class ChessModel implements Model{
 		return true;
 	}
 	
+	/**
+	 * Resetta la matrice delle caselle valide
+	 */
 	private void ResetShineMatrix(){
-		//Resetta la matrice delle caselle valide
-				for(int i=0;i<8;i++){
-					for(int j=0;j<8;j++){
-						Shine[i][j]=false;
-					}
-				}
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				Shine[i][j]=false;
+			}
+		}
 	}
 
-	
-			
-			
-	private Piece Swap(int x,int y){//modifica la matrice delle posizioni
+	/**
+	 * Modifica la matrice delle posizioni.
+	 * Sposto il pezzo corrente in x, y
+	 * @param x riga
+	 * @param y colonna
+	 * @return pezzo temporaneo in caso di rollback
+	 */
+	private Piece Swap(int x,int y){
 		Piece tmp;
 		//devo controllare se ho messo un re e in caso affermatico modificare gli attributi delle coorinate
 		if(WKingx==holdx && WKingy==holdy){
 			WKingx=x;
 			WKingy=y;
-			
 		}else if(BKingx==holdx && BKingy==holdy){
 			BKingx=x;
 			BKingy=y;
-			
 		}
-		
-		
 		tmp=pieces[x][y];
 		pieces[x][y]=pieces[holdx][holdy];
 		pieces[holdx][holdy]=null;
 		return tmp; //devo tenere traccua di positions[x][y] perchè necessario in caso di RollBack
 	}
+	
+	/**
+	 * Effettua la mossa contraria di Swap
+	 * @param x riga
+	 * @param y colonna
+	 * @param tmp pezzo da ristabilire
+	 */
 	private void RollBack(int x,int y,Piece tmp){ //effettua la mossa contraria di Swap
 		pieces[holdx][holdy]=pieces[x][y];
 		pieces[x][y]=tmp;
-		
 		if(pieces[holdx][holdy] instanceof King && pieces[holdx][holdy].getColor()==PColor.WHITE){
-		
 			WKingx=holdx;
 			WKingy=holdy;
-			
 		}else if(pieces[holdx][holdy] instanceof King && pieces[holdx][holdy].getColor()==PColor.BLACK) {
 			BKingx=holdx;
 			BKingy=holdy;
-		
-	}	
-}
+		}	
+	}
 
-
-	
+	/**
+	 * Filtra le caselle valide per una mossa togliendo dalle possibilita'� le caselle che non liberano 
+	 * il re dallo scacco o che lo renderebbero sotto scacco
+	 * @return true se c'e' almeno una casella valida dove spostare la pedina in questione
+	 */
 	private boolean FilterValidTiles(){
-		//filtra le caselle valide per una mossa togliendo dalle possibilità le caselle che non liberano
-		//il re dallo scacco o che lo renderebbero sotto scacco
 		Piece tmp;
 		int count=0;
-			for(int i=0;i<8;i++){
-				for(int j=0;j<8;j++){
-					if(Shine[i][j]){
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				if(Shine[i][j]){
 					count++; //il contatore sever a determinare se vi è almeno una casella valida(vedi sotto)
 					tmp=Swap(i,j);
 					HoldShine=CopyBooleanMatrix(Shine);
@@ -225,110 +227,97 @@ public class ChessModel implements Model{
 					}
 					Shine=CopyBooleanMatrix(HoldShine);
 					RollBack(i,j,tmp);
-						}
 				}
 			}
-			
-			if(count>0){return true;}else{return false;} //true se c'è almeno una casella valida dove spostare la pedina in quesitone
-		
+		}
+		if(count>0){return true;}else{return false;} //true se c'e' almeno una casella valida dove spostare la pedina in quesitone
 	}
 	
-private void  ifPawnUpgrade(int x,int y){//determina se un pedone ha ragiunto la casella di promozione
-										//in caso affermativo chiama la funzione di promozione
-		
+	/**
+	 * Determina se un pedone ha ragiunto la casella di promozione in caso affermativo chiama la funzione di promozione
+	 * @param x riga
+	 * @param y colonna
+	 */
+	private void  ifPawnUpgrade(int x,int y){
 		if((pieces[x][y] instanceof Pawn && x==0)||(pieces[x][y] instanceof Pawn && x==7)){
 			view.pawnUpgrade(x,y,currTurn);
-			}
-	
-}
+		}
+	}
 
-public void SetUpgradedPawn(int x,int y,Piece piece){//setta la pedina con cui è stato promosso il pedone
-	pieces[x][y]=piece;
-	view.change(pieces);
-}
+	/**
+	 * Setta la pedina con cui e' stato promosso il pedone
+	 */
+	public void SetUpgradedPawn(int x,int y,Piece piece){
+		pieces[x][y]=piece;
+		view.change(pieces);
+	}
 	
-	
-	private boolean IfCheck(){//Controlla sel il giocatore chiamante è sotto scacco
+	/**
+	 * Controlla se il giocatore chiamante e' sotto scacco
+	 * @return
+	 */
+	private boolean IfCheck(){
 		ResetShineMatrix();
-	
-			
-			for(int i=0;i<8;i++){
-				for(int j=0;j<8;j++){
-					
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){	
 				if(currTurn==PColor.WHITE){
 					if(pieces[i][j]!=null && pieces[i][j].getColor()==PColor.BLACK){
 						currTurn=PColor.BLACK;
 						pieces[i][j].validTiles(i, j);
 						currTurn=PColor.WHITE;
 						if(Shine[WKingx][WKingy]){
-							
 							return true;
 						}
-						
 					}
 				}else{
 					if(pieces[i][j]!=null && pieces[i][j].getColor()==PColor.WHITE){
-						
 						currTurn=PColor.WHITE;
 						pieces[i][j].validTiles(i, j);
 						currTurn=PColor.BLACK;
 						if(Shine[BKingx][BKingy]){
-							
 							return true;
 						}
-						
-						
 					}
 				}
-				
-			}
-			
-				
+			}	
 		}
-		
 		return false;
 	}
 	
-	
+	/**
+	 * Controlla se i re sono sotto scacco
+	 * @return true se il re del turno corrente p sotto scacco
+	 */
 	private boolean IfCheckMate(){
 		Piece tmp;
 		if(currTurn==PColor.WHITE){
-		for(int i=7;i>=0;i--){
-			for(int j=7;j>=0;j--){
-				
-				if(pieces[i][j]!=null && pieces[i][j].getColor()==PColor.WHITE){
-					ResetShineMatrix();
-					pieces[i][j].validTiles(i, j);
-					for(int k=0;k<8;k++){
-						for(int h=0;h<8;h++){
-							if(Shine[k][h]){
-								holdx=i;
-								holdy=j;
-								tmp=Swap(k,h);
-								HoldShine=CopyBooleanMatrix(Shine);
-								if(!IfCheck()){
-								RollBack(k,h,tmp);
-								return false;
+			for(int i=7;i>=0;i--){
+				for(int j=7;j>=0;j--){
+					if(pieces[i][j]!=null && pieces[i][j].getColor()==PColor.WHITE){
+						ResetShineMatrix();
+						pieces[i][j].validTiles(i, j);
+						for(int k=0;k<8;k++){
+							for(int h=0;h<8;h++){
+								if(Shine[k][h]){
+									holdx=i;
+									holdy=j;
+									tmp=Swap(k,h);
+									HoldShine=CopyBooleanMatrix(Shine);
+									if(!IfCheck()){
+										RollBack(k,h,tmp);
+										return false;
+									}
+									Shine=CopyBooleanMatrix(HoldShine);
+									RollBack(k,h,tmp);
 								}
-									
-								Shine=CopyBooleanMatrix(HoldShine);
-								RollBack(k,h,tmp);
-								
 							}
 						}
 					}
-					
 				}
-				
-				
 			}
-		}
-		
 		}else{
-			
 			for(int i=0;i<8;i++){
 				for(int j=0;j<8;j++){
-					
 					if(pieces[i][j]!=null && pieces[i][j].getColor()==PColor.BLACK){
 						ResetShineMatrix();
 						pieces[i][j].validTiles(i, j);
@@ -340,38 +329,25 @@ public void SetUpgradedPawn(int x,int y,Piece piece){//setta la pedina con cui �
 									tmp=Swap(k,h);
 									HoldShine=CopyBooleanMatrix(Shine);
 									if(!IfCheck()){
-									RollBack(k,h,tmp);
-									return false;
-									}
-										
+										RollBack(k,h,tmp);
+										return false;
+									}	
 									Shine=CopyBooleanMatrix(HoldShine);
 									RollBack(k,h,tmp);
-									
 								}
 							}
-						}
-						
+						}	
 					}
-					
-					
 				}
-			}
-			
-			
-			
-			
-			
-			
+			}	
 		}
-		
-		
-		
 		return true;
-		
 	}
 	
-	
-	public static boolean[][] CopyBooleanMatrix(boolean [][] input) {//copia una matrice booleana
+	/**
+	 * Copia una matrice di {@link Boolean}
+	 */
+	public static boolean[][] CopyBooleanMatrix(boolean [][] input) {
 	    if (input == null)
 	        return null;
 	    boolean[][] result = new boolean[input.length][];
@@ -381,13 +357,4 @@ public void SetUpgradedPawn(int x,int y,Piece piece){//setta la pedina con cui �
 	    return result;
 	}
 
-
-
-
-	
-	
-	
-	
-	}
-
-
+}

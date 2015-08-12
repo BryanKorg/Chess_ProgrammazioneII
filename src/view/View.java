@@ -68,4 +68,5 @@ public interface View {
 	 * @param color
 	 */
 	public void changeMenuColor(PColor color);
+	
 }
