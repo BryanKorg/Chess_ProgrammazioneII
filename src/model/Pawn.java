@@ -6,7 +6,7 @@ package model;
 public class Pawn extends Piece {
 
 	public Pawn(PColor color, ChessModel model) {
-		super(color, model);
+		super(color, model,5);
 	}
 
 	@Override

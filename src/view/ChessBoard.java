@@ -41,12 +41,15 @@ public class ChessBoard extends JPanel implements View {
 	private ChessFrame FRAME;
 	private Model model;
 	private JMenuBar menubar;
+	
+	
 	public ChessBoard(ChessFrame FRAME,Model model){	
 		this.model=model;
 		this.FRAME=FRAME;
 		setLayout(new GridLayout(8,8));
 		//Carico in memoria le immagini
-		LoadImages();
+		//LoadImages(); 
+		//TODO magari posso caricare qui l'immagine delle pedine per non caricarla più volte
 		//Crea caselle
 		CreateTiles();
 		//Metti le pedine nella configurazione iniziale
@@ -59,10 +62,10 @@ public class ChessBoard extends JPanel implements View {
 		JMenu menu;
 		
 		//Crea la barra dei menu
-	menubar = new JMenuBar();
-	menubar.setBackground(Color.white);
-	Border blackline = BorderFactory.createLineBorder(Color.black, 1);
-	menubar.setBorder(blackline);
+		menubar = new JMenuBar();
+		menubar.setBackground(Color.white);
+		Border blackline = BorderFactory.createLineBorder(Color.black, 1);
+		menubar.setBorder(blackline);
 		//Crea l'unico menu
 		menu = new JMenu("Chess");
 		menu.setBackground(Color.LIGHT_GRAY);
@@ -99,6 +102,7 @@ public class ChessBoard extends JPanel implements View {
 	}
 	
 	public void initialPosition(Piece pieces[][]){
+		/* TODO elimina
 		pieces[0][0].setImg(images[8]);
 		pieces[0][1].setImg(images[10]);
 		pieces[0][2].setImg(images[9]);
@@ -132,22 +136,24 @@ public class ChessBoard extends JPanel implements View {
 		pieces[6][5].setImg(images[5]);
 		pieces[6][6].setImg(images[5]);
 		pieces[6][7].setImg(images[5]);
+		*/
 		change(pieces);
+		this.repaint();
 	}
 	
 	public void change(Piece[][] pieces){//cambia la posizione grafica delle pedine
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				if(pieces[i][j]!=null){
-					tiles[i][j].setImg(pieces[i][j].getImg());
+					tiles[i][j].setPieceID(pieces[i][j].getPieceID());
 				}else{
-					tiles[i][j].setImg(null);
+					tiles[i][j].setPieceID(-1);
 				}
 			}
 		}
 		this.repaint();
 	}
-	
+	/* TODO elimina
 	private void LoadImages(){
 		images[0]=this.makeColorTransparent(new ImageIcon("img/Wking.png").getImage(), Color.blue);
 		images[1]=this.makeColorTransparent(new ImageIcon("img/Wqueen.png").getImage(), Color.blue);
@@ -162,21 +168,21 @@ public class ChessBoard extends JPanel implements View {
 		images[10]=this.makeColorTransparent(new ImageIcon("img/Bknight.png").getImage(), Color.blue);
 		images[11]=this.makeColorTransparent(new ImageIcon("img/Bpawn.png").getImage(), Color.blue);
 		
-	}
+	}*/
 	
 	private void CreateTiles(){
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				if(((i+j) % 2)==0){
-					add(tiles[i][j]=mkTile(i,j,Color.white));					
+					add(tiles[i][j]=mkTile(i,j,PColor.WHITE));					
 				}else{
-					add(tiles[i][j]=mkTile(i,j,Color.gray));
+					add(tiles[i][j]=mkTile(i,j,PColor.BLACK));
 				}
 			}
 		}	
 	}
 	
-	private Tile mkTile(int x, int y,Color color){
+	private Tile mkTile(int x, int y,PColor color){
 		Tile ret= new Tile(color);
 		ret.addMouseListener(new MouseAdapter(){
 			@Override
@@ -209,7 +215,6 @@ public class ChessBoard extends JPanel implements View {
 		return Toolkit.getDefaultToolkit().createImage(ip);
 	}
 	
-	
 	public void setController(Controller controller){
 		this.controller=controller;
 	}
@@ -224,7 +229,7 @@ public class ChessBoard extends JPanel implements View {
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				if(Pos[i][j]){
-					tiles[i][j].setColor(Color.yellow);
+					tiles[i][j].focusOn();;
 				}
 			}
 		}
@@ -235,14 +240,7 @@ public class ChessBoard extends JPanel implements View {
 		for(int h=0;h<2;h++){
 			for(int i=0;i<8;i++){
 				for(int j=0;j<8;j++){
-					if(tiles[i][j].getBackground()==Color.yellow ){
-						if(((i+j) % 2)==0){
-							tiles[i][j].setColor(Color.white);
-							
-						}else{
-							tiles[i][j].setColor(Color.gray);
-						}
-					}
+					tiles[i][j].focusOff();
 				}
 			}
 		super.repaint();
@@ -252,18 +250,11 @@ public class ChessBoard extends JPanel implements View {
 	@Override
 	public void check(int x, int y,boolean stato) {
 		if(stato){
-			tiles[x][y].setColor(Color.red);
+			tiles[x][y].alertOn();
 		}else{
 			for(int i=0;i<8;i++){
 				for(int j=0;j<8;j++){
-					if(tiles[i][j].getBackground()==Color.red ){
-						if(((i+j) % 2)==0){
-							tiles[i][j].setColor(Color.white);
-							
-						}else{
-							tiles[i][j].setColor(Color.gray);
-						}
-					}
+					tiles[i][j].alertOff();
 				}
 			}
 		}
@@ -341,5 +332,11 @@ public class ChessBoard extends JPanel implements View {
 		}
 	}
 	private static final long serialVersionUID = 1L;
-	
+	/*TODO sembra non andare...
+	public void changeSize(){
+		System.out.printf("--w: %d, h: %d, min: %d.\n",FRAME.WIDTH,FRAME.HEIGHT,2);
+		int tempSize=Math.min(FRAME.WIDTH,FRAME.HEIGHT);
+		this.setSize(tempSize, tempSize);
+	}
+	*/
 }

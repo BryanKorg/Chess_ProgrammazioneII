@@ -3,7 +3,7 @@ package model;
 public class Rook extends Piece {
 
 	public Rook(PColor color, ChessModel model) {
-		super(color, model);
+		super(color, model,4);
 	}
 
 	@Override

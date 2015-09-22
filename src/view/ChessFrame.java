@@ -18,12 +18,14 @@ public class ChessFrame extends JFrame {
 	private View chessboard;
 
 	public ChessFrame(){//inizializza le altre componenti 
+		
 		setTitle("Chess");
 		chessboard= AddChessBoard();
 		this.controller= new ChessController(chessboard);
 		controller.setModel(model);
 		model.setView(chessboard);
 		model.initChessboard();
+
 	}
 	
 	public void Close(){
@@ -42,6 +44,11 @@ public class ChessFrame extends JFrame {
 	public Model getModel() {
 		return model;
 	}
-
+	
+	/* TODO elimina
+	public void changeSize(int w, int h){
+		System.out.printf("-w: %d, h: %d, min: %d.\n",w,h,Math.min(w,h));
+		((ChessBoard) chessboard).changeSize();
+	}*/
 }
 

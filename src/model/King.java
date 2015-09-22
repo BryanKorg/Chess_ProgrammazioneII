@@ -1,9 +1,9 @@
 package model;
 
 public class King extends Piece {
-
+	
 	public King(PColor color, ChessModel model) {
-		super(color, model);
+		super(color, model,0);
 	}
 
 	@Override
