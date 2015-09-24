@@ -37,7 +37,7 @@ public class ChessBoard extends JPanel implements View {
 	
 	private  Controller controller;
 	private Tile tiles[][]= new Tile[8][8];
-	private Image images[]= new Image[12];
+	private Image pieceImage,squareImage;
 	private ChessFrame FRAME;
 	private Model model;
 	private JMenuBar menubar;
@@ -48,8 +48,7 @@ public class ChessBoard extends JPanel implements View {
 		this.FRAME=FRAME;
 		setLayout(new GridLayout(8,8));
 		//Carico in memoria le immagini
-		//LoadImages(); 
-		//TODO magari posso caricare qui l'immagine delle pedine per non caricarla più volte
+		LoadImages(); 
 		//Crea caselle
 		CreateTiles();
 		//Metti le pedine nella configurazione iniziale
@@ -102,41 +101,6 @@ public class ChessBoard extends JPanel implements View {
 	}
 	
 	public void initialPosition(Piece pieces[][]){
-		/* TODO elimina
-		pieces[0][0].setImg(images[8]);
-		pieces[0][1].setImg(images[10]);
-		pieces[0][2].setImg(images[9]);
-		pieces[0][3].setImg(images[6]);
-		pieces[0][4].setImg(images[7]);
-		pieces[0][5].setImg(images[9]);
-		pieces[0][6].setImg(images[10]);
-		pieces[0][7].setImg(images[8]);
-		pieces[1][0].setImg(images[11]);
-		pieces[1][1].setImg(images[11]);
-		pieces[1][2].setImg(images[11]);
-		pieces[1][3].setImg(images[11]);
-		pieces[1][4].setImg(images[11]);
-		pieces[1][5].setImg(images[11]);
-		pieces[1][6].setImg(images[11]);
-		pieces[1][7].setImg(images[11]);
-		//Bianchi
-		pieces[7][0].setImg(images[2]);
-		pieces[7][1].setImg(images[4]);
-		pieces[7][2].setImg(images[3]);
-		pieces[7][3].setImg(images[0]);
-		pieces[7][4].setImg(images[1]);
-		pieces[7][5].setImg(images[3]);
-		pieces[7][6].setImg(images[4]);
-		pieces[7][7].setImg(images[2]);
-		pieces[6][0].setImg(images[5]);
-		pieces[6][1].setImg(images[5]);
-		pieces[6][2].setImg(images[5]);
-		pieces[6][3].setImg(images[5]);
-		pieces[6][4].setImg(images[5]);
-		pieces[6][5].setImg(images[5]);
-		pieces[6][6].setImg(images[5]);
-		pieces[6][7].setImg(images[5]);
-		*/
 		change(pieces);
 		this.repaint();
 	}
@@ -153,22 +117,11 @@ public class ChessBoard extends JPanel implements View {
 		}
 		this.repaint();
 	}
-	/* TODO elimina
+
 	private void LoadImages(){
-		images[0]=this.makeColorTransparent(new ImageIcon("img/Wking.png").getImage(), Color.blue);
-		images[1]=this.makeColorTransparent(new ImageIcon("img/Wqueen.png").getImage(), Color.blue);
-		images[2]=this.makeColorTransparent(new ImageIcon("img/Wrook.png").getImage(), Color.blue);
-		images[3]=this.makeColorTransparent(new ImageIcon("img/Wbishop.png").getImage(), Color.blue);
-		images[4]=this.makeColorTransparent(new ImageIcon("img/Wknight.png").getImage(), Color.blue);
-		images[5]=this.makeColorTransparent(new ImageIcon("img/Wpawn.png").getImage(), Color.blue);
-		images[6]=this.makeColorTransparent(new ImageIcon("img/Bking.png").getImage(), Color.blue);
-		images[7]=this.makeColorTransparent(new ImageIcon("img/Bqueen.png").getImage(), Color.blue);
-		images[8]=this.makeColorTransparent(new ImageIcon("img/Brook.png").getImage(), Color.blue);
-		images[9]=this.makeColorTransparent(new ImageIcon("img/Bbishop.png").getImage(), Color.blue);
-		images[10]=this.makeColorTransparent(new ImageIcon("img/Bknight.png").getImage(), Color.blue);
-		images[11]=this.makeColorTransparent(new ImageIcon("img/Bpawn.png").getImage(), Color.blue);
-		
-	}*/
+		squareImage=new ImageIcon(properties.tilesImagePath).getImage();
+		pieceImage = new ImageIcon(properties.piecesImagePath).getImage();
+	}
 	
 	private void CreateTiles(){
 		for(int i=0;i<8;i++){
@@ -183,7 +136,7 @@ public class ChessBoard extends JPanel implements View {
 	}
 	
 	private Tile mkTile(int x, int y,PColor color){
-		Tile ret= new Tile(color);
+		Tile ret= new Tile(color,squareImage,pieceImage);
 		ret.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e){
@@ -291,52 +244,25 @@ public class ChessBoard extends JPanel implements View {
 		    Piece ret;
 		    if(s.equals("Queen")){
 		    	ret=new Queen(currTurn,(ChessModel)model);
-		    	if(currTurn==PColor.WHITE){
-		    		ret.setImg(images[1]);
-		    	}else{
-		    		ret.setImg(images[7]);
-		    	}
 		    	model.SetUpgradedPawn(x, y,ret );
 		    }else if(s.equalsIgnoreCase("Rook")){
 		    	ret=new Rook(currTurn,(ChessModel)model);
-		    	if(currTurn==PColor.WHITE){
-		    		ret.setImg(images[2]);
-		    	}else{
-		    		ret.setImg(images[8]);
-		    	}
 		    	model.SetUpgradedPawn(x, y,ret );
 		    }else if(s.equalsIgnoreCase("Knight")){
 		    	ret=new Knight(currTurn,(ChessModel)model);
-		    	if(currTurn==PColor.WHITE){
-		    		ret.setImg(images[4]);
-		    	}else{
-		    		ret.setImg(images[10]);
-		    	}
 		    	model.SetUpgradedPawn(x, y,ret );
 		    }else if(s.equalsIgnoreCase("Bishop")){
 		    	ret=new Bishop(currTurn,(ChessModel)model);
-		    	if(currTurn==PColor.WHITE){
-		    		ret.setImg(images[3]);
-		    	}else{
-		    		ret.setImg(images[9]);
-		    	}
 		    	model.SetUpgradedPawn(x, y,ret );   	
 		    } 
 		}
 	}
 	public void changeMenuColor(PColor color){
 		if(color==PColor.WHITE){
-			menubar.setBackground(Color.WHITE);
+			menubar.setBackground(properties.colorWhite);
 		}else{
-			menubar.setBackground(Color.BLACK);
+			menubar.setBackground(properties.colorBlack);
 		}
 	}
 	private static final long serialVersionUID = 1L;
-	/*TODO sembra non andare...
-	public void changeSize(){
-		System.out.printf("--w: %d, h: %d, min: %d.\n",FRAME.WIDTH,FRAME.HEIGHT,2);
-		int tempSize=Math.min(FRAME.WIDTH,FRAME.HEIGHT);
-		this.setSize(tempSize, tempSize);
-	}
-	*/
 }

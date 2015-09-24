@@ -22,7 +22,6 @@ public class Queen extends Piece  {
 		int c=x;
 		int r=y;
 		
-		//TODO rifare gli assegnamenti tipo quelli su Rook?
 		//diagonale gi�+destra
 		r++;
 		c++;

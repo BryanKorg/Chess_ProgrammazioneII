@@ -1,14 +1,11 @@
 package model;
 
-import java.awt.Image;
-
 /**
  * Classe astratta per definire un pezzo
  */
 public abstract class Piece {
 	protected PColor color;
 	protected ChessModel myModel; 
-	protected Image img;  /*TODO elimina*/
 	private final int pieceID;
 	/* pieceID è un numero che identifica i vari tipi di pezzi per disegnarli.
 	 * 0 = king
@@ -44,14 +41,6 @@ public abstract class Piece {
 	 */
 	public PColor getColor(){
 		return color;
-	}
-	
-	public void setImg(Image img){
-		this.img=img;
-	}
-	
-	public Image getImg(){
-		return img;
 	}
 	
 	//TODO Utilizziamo anche qui enumeratori? square tipo: EMPTY, ENEMY e INVALID?

@@ -44,11 +44,5 @@ public class ChessFrame extends JFrame {
 	public Model getModel() {
 		return model;
 	}
-	
-	/* TODO elimina
-	public void changeSize(int w, int h){
-		System.out.printf("-w: %d, h: %d, min: %d.\n",w,h,Math.min(w,h));
-		((ChessBoard) chessboard).changeSize();
-	}*/
 }
 
