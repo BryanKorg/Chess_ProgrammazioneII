@@ -3,7 +3,7 @@ package model;
 public class Bishop extends Piece {
 
 	public Bishop(PColor color, ChessModel model) {
-		super(color, model);
+		super(color, model,2);
 	}
 
 	@Override

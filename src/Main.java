@@ -1,5 +1,4 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 import view.ChessFrame;
@@ -19,5 +18,4 @@ public class Main {
 			}
 		});	
 	}
-
 }

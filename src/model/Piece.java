@@ -1,23 +1,31 @@
 package model;
 
-import java.awt.Image;
-
 /**
  * Classe astratta per definire un pezzo
  */
 public abstract class Piece {
 	protected PColor color;
 	protected ChessModel myModel; 
-	protected Image img;
-	
+	private final int pieceID;
+	/* pieceID è un numero che identifica i vari tipi di pezzi per disegnarli.
+	 * 0 = king
+	 * 1 = queen
+	 * 2 = bishop
+	 * 3 = knight
+	 * 4 = rook
+	 * 5 = pawn
+	 * Viene sommato a 6 se di colore nero
+	 */
+
 	/**
 	 * Crea un pezzo 
 	 * @param color colore del pezzo
 	 * @param model il {@link ChessModel} principale
 	 */
-	public Piece(PColor color,ChessModel model){
+	public Piece(PColor color,ChessModel model, int pieceID){
 		this.color=color;
 		this.myModel=model;
+		this.pieceID = pieceID;
 	}
 	
 	/**
@@ -33,14 +41,6 @@ public abstract class Piece {
 	 */
 	public PColor getColor(){
 		return color;
-	}
-	
-	public void setImg(Image img){
-		this.img=img;
-	}
-	
-	public Image getImg(){
-		return img;
 	}
 	
 	//TODO Utilizziamo anche qui enumeratori? square tipo: EMPTY, ENEMY e INVALID?
@@ -61,6 +61,10 @@ public abstract class Piece {
 			}
 		}
 		return -1; //la casella ï¿½ invalida	
+	}
+
+	public int getPieceID() {
+		return pieceID+this.color.ordinal()*6;
 	}
 	
 }

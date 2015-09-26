@@ -3,7 +3,7 @@ package model;
 public class Queen extends Piece  {
 
 	public Queen(PColor color, ChessModel model) {
-		super(color, model);
+		super(color, model,1);
 	}
 
 	@Override
@@ -22,7 +22,6 @@ public class Queen extends Piece  {
 		int c=x;
 		int r=y;
 		
-		//TODO rifare gli assegnamenti tipo quelli su Rook?
 		//diagonale gi�+destra
 		r++;
 		c++;

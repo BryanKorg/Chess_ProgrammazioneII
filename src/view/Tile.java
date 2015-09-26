@@ -1,46 +1,82 @@
 package view;
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.*;
+import javax.swing.JComponent;
 
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
-
+import model.PColor;
+import view.properties;
 
 /**
  *  Quadrato della scacchiera
  */
-public class Tile extends JPanel {
+public class Tile extends JComponent{
 
 	private static final long serialVersionUID = 1L;
-	private Image image=null;
-	private Color c;
-
-	public Tile(Color c){
+	private Image squareImage = null;
+	private Image pieceImage = null;
+	private int pieceID = -1;
+	private PColor c;
+	private boolean focus = false;
+	private boolean alert = false;
+	
+	public Tile(PColor c, Image squareImage, Image pieceImage){
 		this.c=c;
-		Border blackline = BorderFactory.createLineBorder(Color.black);
-		this.setBorder(blackline);
+		this.squareImage = squareImage;
+		this.pieceImage = pieceImage;
 	}
 	
-	public void setImg(Image image){
-		this.image=image;
+	public void setPieceID(int pieceID){
+		this.pieceID=pieceID;
 	}
+	public void focusOn(){
+		focus=true;	
+	}
+	public void focusOff(){
+		focus=false;
+	}
+	
+	public void alertOn(){
+		alert=true;	
+	}
+	public void alertOff(){
+		alert=false;
+	}
+	
+	/**
+	 * Method to paint the square component
+	 */
 	
 	@Override
-	protected void paintComponent(Graphics g){//renderizza la grafica
-		super.paintComponent(g);
-		
-		if(image!=null){	
-			//disegna l'immagine
-			g.drawImage(image,0,0,this.getWidth(),this.getHeight(),null);
+	public void paintComponent(Graphics graphics)
+	{
+		super.paintComponent(graphics);
+		int dim=properties.tilesDimension;
+
+		Graphics2D paintGraphics = (Graphics2D) graphics;
+		paintGraphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		paintGraphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		paintGraphics.drawImage(squareImage, 0, 0, this.getWidth(), this.getHeight(),c.ordinal()*dim,0,c.ordinal()*dim+dim,dim, null); 
+		//Empathize the selected square
+		if(focus){
+			paintGraphics.setColor(properties.colorFocus);
+			paintGraphics.fillRect(0, 0, this.getWidth(), this.getHeight());
+			}
+		if(alert){
+			paintGraphics.setColor(properties.colorAlert);
+			paintGraphics.fillRect(0, 0, this.getWidth(), this.getHeight());
+			}		
+		if (this.pieceID>=0) {
+			int pieceDim=properties.piecesDimension;
+			int offset = properties.pieceOffset;
+			int color=0, pieceNumber=pieceID;
+			if (pieceID>=6){
+				color=1;
+				pieceNumber-=6;
+			}
+			paintGraphics.drawImage(pieceImage, 0+offset, 0+offset, this.getWidth()-offset, this.getHeight()-offset,pieceNumber*pieceDim,color*pieceDim,pieceNumber*pieceDim+pieceDim,color*pieceDim+pieceDim, null);
 		}
-		this.setBackground(c);
 		this.repaint();//necessario 	
-	}
-	
-	public void setColor(Color c){
-		this.c=c;	
-	}
-	
+	}	
 }
