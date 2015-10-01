@@ -118,15 +118,19 @@ public class ChessModel implements Model{
 			}
 			
 			//Prima di permettere all'altro giocatore di muovere, controllo se è sotto scacco
+			if(IfCheckMate())
+				if(IfCheck())
+					view.showCheckMsg(); //Scacco Matto
+				else
+					view.showStaleMate(); //Stallo
+			
 			if(IfCheck()){
-				if(IfCheckMate()){
-					view.showCheckMsg();	
-				}else{
+
 					if(currTurn==PColor.WHITE){
 						view.check(WKingx,WKingy,true);
 					}else{
 						view.check(BKingx,BKingy,true);
-					}
+
 				}
 			}else{
 				if(currTurn==PColor.WHITE){
@@ -256,7 +260,7 @@ public class ChessModel implements Model{
 	 * Controlla se il giocatore chiamante e' sotto scacco
 	 * @return
 	 */
-	private boolean IfCheck(){
+	public boolean IfCheck(){
 		ResetShineMatrix();
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){	
@@ -288,7 +292,7 @@ public class ChessModel implements Model{
 	 * Controlla se i re sono sotto scacco
 	 * @return true se il re del turno corrente p sotto scacco
 	 */
-	private boolean IfCheckMate(){
+	public boolean IfCheckMate(){
 		Piece tmp;
 		if(currTurn==PColor.WHITE){
 			for(int i=7;i>=0;i--){
@@ -356,5 +360,17 @@ public class ChessModel implements Model{
 	    }
 	    return result;
 	}
+
+	@Override
+	public void setConfiguration(Piece[][] pieceConfig, int blackKingX,
+			int blackKingY, int whiteKingX, int whiteKingY, PColor currTurn) {
+		this.pieces=pieceConfig;
+		this.BKingx=blackKingX;
+		this.BKingy=blackKingY;
+		this.WKingx=whiteKingX;
+		this.WKingy=whiteKingY;
+		this.currTurn=currTurn;		
+	}
+
 
 }

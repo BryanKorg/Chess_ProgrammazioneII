@@ -29,5 +29,10 @@ public interface Model {
 	 * Inizializza la scacchiera per una nuova partita
 	 */
 	public void initChessboard();
+
+	/**
+	 * Setta la configurazione della scacchiera
+	 */
+	void setConfiguration(Piece[][]pieceConfig,int blackKingX, int blackKingY,int whiteKingX, int whiteKingY,PColor currTurn);
 	
 }

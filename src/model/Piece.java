@@ -1,5 +1,7 @@
 package model;
 
+import org.hamcrest.core.IsInstanceOf;
+
 /**
  * Classe astratta per definire un pezzo
  */
@@ -67,4 +69,8 @@ public abstract class Piece {
 		return pieceID+this.color.ordinal()*6;
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		return other instanceof Piece && this.color==((Piece)other).color && this.pieceID==((Piece)other).pieceID;
+	}
 }

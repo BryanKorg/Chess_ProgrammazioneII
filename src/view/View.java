@@ -68,5 +68,10 @@ public interface View {
 	 * @param color
 	 */
 	public void changeMenuColor(PColor color);
+
+	/**
+	 * Avviso stallo
+	 */
+	public void showStaleMate();
 	
 }
