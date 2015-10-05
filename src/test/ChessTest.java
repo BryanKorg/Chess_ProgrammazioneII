@@ -9,6 +9,7 @@ import model.PColor;
 import model.Pawn;
 import model.Piece;
 import model.Queen;
+import model.Rook;
 
 import org.junit.Test;
 
@@ -68,5 +69,30 @@ public class ChessTest {
 		
 	}
 	
-	//TODO finisci test
+	/**
+	 * Test sulla validità della casella
+	 */
+	@Test
+	public void IsValidTest(){
+		ChessModel modello = new ChessModel();
+		Piece [][]scacchiera=new Piece [8][8];
+
+		scacchiera[6][0]=new Pawn(PColor.WHITE, modello);
+		scacchiera[6][3]=new Pawn(PColor.WHITE, modello);
+		scacchiera[7][3]=new King(PColor.WHITE, modello);
+		scacchiera[7][4]=new Queen(PColor.WHITE, modello);
+		scacchiera[7][7]=new Rook(PColor.WHITE, modello);
+		scacchiera[0][3]=new King(PColor.BLACK, modello);
+		modello.setConfiguration(scacchiera, 0, 3, 7, 3, PColor.WHITE);
+		assertTrue(modello.IsValid(6, 0) && modello.IsValid(6, 3)
+				&& modello.IsValid(7, 3) && modello.IsValid(7, 4)
+				&& modello.IsValid(7, 7));
+		assertFalse(modello.IsValid(0,3) || modello.IsValid(0,5));
+		
+		
+	}
+	
+	
+	
+	
 }

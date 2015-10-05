@@ -149,7 +149,7 @@ public class ChessModel implements Model{
 	 * @param y colonna
 	 * @return {@link Boolean} true se valido, altrimenti false
 	 */
-	private boolean IsValid(int x, int y){ 
+	public boolean IsValid(int x, int y){ 
 		if(pieces[x][y]==null){
 			return false;
 		}
@@ -212,7 +212,7 @@ public class ChessModel implements Model{
 	}
 
 	/**
-	 * Filtra le caselle valide per una mossa togliendo dalle possibilita'  le caselle che non liberano 
+	 * Filtra le caselle valide per una mossa togliendo dalle possibilita'ï¿½ le caselle che non liberano 
 	 * il re dallo scacco o che lo renderebbero sotto scacco
 	 * @return true se c'e' almeno una casella valida dove spostare la pedina in questione
 	 */
