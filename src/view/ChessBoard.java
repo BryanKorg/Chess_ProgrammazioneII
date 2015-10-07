@@ -63,32 +63,32 @@ public class ChessBoard extends JPanel implements View {
 		menu = new JMenu("Chess");
 		menu.setBackground(Color.LIGHT_GRAY);
 		menu.setMnemonic(KeyEvent.VK_C);
-		JMenuItem eMenuItem = new JMenuItem("New Game");
+		JMenuItem oggettoMenu = new JMenuItem("New Game");
 		
 		
 	
 		
-		eMenuItem.setMnemonic(KeyEvent.VK_N);
-		eMenuItem.addActionListener(new ActionListener() {
+		oggettoMenu.setMnemonic(KeyEvent.VK_N);
+		oggettoMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				model.initChessboard();
 			}
 	    });
 		
-		JMenuItem eMenuItem1 = new JMenuItem("Exit");
+		JMenuItem oggettoMenu1 = new JMenuItem("Exit");
 		
-		eMenuItem1.setMnemonic(KeyEvent.VK_E);
-		eMenuItem1.addActionListener(new ActionListener() {
+		oggettoMenu1.setMnemonic(KeyEvent.VK_E);
+		oggettoMenu1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				FRAME.Close();
 			}
 	    });
 		
-		menu.add(eMenuItem);
+		menu.add(oggettoMenu);
 		menu.addSeparator();
-		menu.add(eMenuItem1);
+		menu.add(oggettoMenu1);
 		menubar.add(menu);
 		
 		FRAME.setJMenuBar(menubar);
@@ -187,9 +187,10 @@ public class ChessBoard extends JPanel implements View {
 		int n = JOptionPane.showOptionDialog(this,"Checkmate!","Game Over",
 		JOptionPane.YES_NO_OPTION,
 		JOptionPane.PLAIN_MESSAGE,
-		null,     //do not use a custom Icon
-		options,  //the titles of buttons
-		options[0]); //default button title
+		null,     
+		options,  //il titolo dei bottoni
+
+		options[0]); //titolo di default bottone
 			
 		if(n==1){
 			((ChessFrame)FRAME).Close();
@@ -207,7 +208,7 @@ public class ChessBoard extends JPanel implements View {
                 possibilities,
                 "Queen");
 	
-		//If a string was returned, say so.
+		
 		if ((s != null) && (s.length() > 0)) {
 		    Piece ret;
 		    if(s.equals("Queen")){
@@ -241,9 +242,9 @@ public class ChessBoard extends JPanel implements View {
 		int n = JOptionPane.showOptionDialog(this,"Stalemate!","Stalemate!!!",
 		JOptionPane.YES_NO_OPTION,
 		JOptionPane.PLAIN_MESSAGE,
-		null,     //do not use a custom Icon
-		options,  //the titles of buttons
-		options[0]); //default button title
+		null,    
+		options,  //il titolo dei bottoni
+		options[0]); //titolo di default bottone
 			
 		if(n==1){
 			((ChessFrame)FRAME).Close();

@@ -1,7 +1,5 @@
 package model;
 
-import org.hamcrest.core.IsInstanceOf;
-
 /**
  * Classe astratta per definire un pezzo
  */
@@ -9,7 +7,7 @@ public abstract class Piece {
 	protected PColor color;
 	protected ChessModel myModel; 
 	private final int pieceID;
-	/* pieceID è un numero che identifica i vari tipi di pezzi per disegnarli.
+	/* pieceID ï¿½ un numero che identifica i vari tipi di pezzi per disegnarli.
 	 * 0 = king
 	 * 1 = queen
 	 * 2 = bishop
@@ -45,7 +43,7 @@ public abstract class Piece {
 		return color;
 	}
 	
-	//TODO Utilizziamo anche qui enumeratori? square tipo: EMPTY, ENEMY e INVALID?
+	
 	/**
 	 * Determina il tipo di casella indicata da x,y
 	 * @param x riga

@@ -11,7 +11,7 @@ public interface Controller {
 	void setModel(Model model);
 	
 	/**
-	 * Metodo chiamato al click di un quadrato
+	 * Metodo chiamato al click di una casella
 	 * @param x riga
 	 * @param y colonna
 	 */

@@ -17,7 +17,6 @@ public class properties {
 	//Colors
 		public static Color colorFocus=new Color(0x8800B400,true);
 		public static Color colorAlert=new Color(0x88FF0000,true);
-		public static Color colorMouseEntered=new Color(0x56FFB400,true);
 		public static Color colorWhite=new Color(0xFFf6f6f6,true);
 		public static Color colorBlack=new Color(0xFF5d5d5d,true);
 }

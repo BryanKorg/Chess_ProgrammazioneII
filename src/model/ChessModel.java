@@ -108,6 +108,7 @@ public class ChessModel implements Model{
 				view.lightDown();
 				if(currTurn==PColor.WHITE){view.check(WKingx,WKingy,false);}else{view.check(BKingx,BKingy,false);}
 				ifPawnUpgrade(x,y);
+				//Cambio il colore per indicare all'utente a chi tocca a muovere
 				if(currTurn==PColor.WHITE){
 					view.changeMenuColor(PColor.BLACK);
 					currTurn=PColor.BLACK;
@@ -118,14 +119,20 @@ public class ChessModel implements Model{
 			}
 			
 			//Prima di permettere all'altro giocatore di muovere, controllo se è sotto scacco
+			/*l'algoritmo di scacco matto ritorna true se il re non ha caselle in cui muoversi
+			 * quindi lo stesso algoritmo può essere usato per verificare una condizione di stallo,
+			 * la differenza è che nello scacco matto il re si trova sotto scacco
+			 * */
 			if(IfCheckMate())
 				if(IfCheck())
 					view.showCheckMsg(); //Scacco Matto
 				else
 					view.showStaleMate(); //Stallo
 			
+			
+			
 			if(IfCheck()){
-
+				//Illumina la casella in cui è posizionato il re sotto scacco
 					if(currTurn==PColor.WHITE){
 						view.check(WKingx,WKingy,true);
 					}else{
@@ -133,6 +140,7 @@ public class ChessModel implements Model{
 
 				}
 			}else{
+				//spegne la casella illuminata dal colore dello scacco nel caso in cui lo scacco è stato risolto
 				if(currTurn==PColor.WHITE){
 					view.check(WKingx,WKingy,false);
 				}else{
@@ -179,7 +187,7 @@ public class ChessModel implements Model{
 	 */
 	private Piece Swap(int x,int y){
 		Piece tmp;
-		//devo controllare se ho messo un re e in caso affermatico modificare gli attributi delle coorinate
+		//devo controllare se ho messo un re e in caso affermatico modificare gli attributi delle coordinate
 		if(WKingx==holdx && WKingy==holdy){
 			WKingx=x;
 			WKingy=y;
@@ -190,7 +198,7 @@ public class ChessModel implements Model{
 		tmp=pieces[x][y];
 		pieces[x][y]=pieces[holdx][holdy];
 		pieces[holdx][holdy]=null;
-		return tmp; //devo tenere traccua di positions[x][y] perchè necessario in caso di RollBack
+		return tmp; //devo tenere traccia di positions[x][y] perchè necessario in caso di RollBack
 	}
 	
 	/**
@@ -216,7 +224,7 @@ public class ChessModel implements Model{
 	 * il re dallo scacco o che lo renderebbero sotto scacco
 	 * @return true se c'e' almeno una casella valida dove spostare la pedina in questione
 	 */
-	private boolean FilterValidTiles(){
+	public boolean FilterValidTiles(){
 		Piece tmp;
 		int count=0;
 		for(int i=0;i<8;i++){
@@ -294,10 +302,10 @@ public class ChessModel implements Model{
 	 */
 	public boolean IfCheckMate(){
 		Piece tmp;
-		if(currTurn==PColor.WHITE){
+		
 			for(int i=7;i>=0;i--){
 				for(int j=7;j>=0;j--){
-					if(pieces[i][j]!=null && pieces[i][j].getColor()==PColor.WHITE){
+					if(pieces[i][j]!=null && pieces[i][j].getColor()==currTurn){
 						ResetShineMatrix();
 						pieces[i][j].validTiles(i, j);
 						for(int k=0;k<8;k++){
@@ -319,32 +327,7 @@ public class ChessModel implements Model{
 					}
 				}
 			}
-		}else{
-			for(int i=0;i<8;i++){
-				for(int j=0;j<8;j++){
-					if(pieces[i][j]!=null && pieces[i][j].getColor()==PColor.BLACK){
-						ResetShineMatrix();
-						pieces[i][j].validTiles(i, j);
-						for(int k=0;k<8;k++){
-							for(int h=0;h<8;h++){
-								if(Shine[k][h]){
-									holdx=i;
-									holdy=j;
-									tmp=Swap(k,h);
-									HoldShine=CopyBooleanMatrix(Shine);
-									if(!IfCheck()){
-										RollBack(k,h,tmp);
-										return false;
-									}	
-									Shine=CopyBooleanMatrix(HoldShine);
-									RollBack(k,h,tmp);
-								}
-							}
-						}	
-					}
-				}
-			}	
-		}
+		
 		return true;
 	}
 	
@@ -360,7 +343,8 @@ public class ChessModel implements Model{
 	    }
 	    return result;
 	}
-
+/**Può essere usato per settare una configurazione di gioco
+ */
 	@Override
 	public void setConfiguration(Piece[][] pieceConfig, int blackKingX,
 			int blackKingY, int whiteKingX, int whiteKingY, PColor currTurn) {

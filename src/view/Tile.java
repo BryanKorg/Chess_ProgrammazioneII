@@ -77,6 +77,6 @@ public class Tile extends JComponent{
 			}
 			paintGraphics.drawImage(pieceImage, 0+offset, 0+offset, this.getWidth()-offset, this.getHeight()-offset,pieceNumber*pieceDim,color*pieceDim,pieceNumber*pieceDim+pieceDim,color*pieceDim+pieceDim, null);
 		}
-		this.repaint();//necessario 	
+		this.repaint();
 	}	
 }
